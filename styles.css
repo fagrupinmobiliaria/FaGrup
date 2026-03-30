@@ -1,49 +1,74 @@
-/* Uniformise la couleur du logo TikTok avec les autres icônes du footer */
+
+/* --- UNIFICATION DES COULEURS (TITRES) --- */
+.about-fusion-section h2,
+.services-section .section-title,
+.companies-section .section-title,
+.testimonials-section .section-title {
+    color: var(--secondary-color) !important;
+    font-family: 'The Seasons', serif !important;
+}
+
+/* --- SECTION ABOUT (SOBRE NOSOTROS) --- */
+.about-fusion-bg {
+    background: rgba(255, 255, 255, 0.85);
+    width: 100%;
+    padding: 48px 0;
+}
+.about-fusion-section .fusion-text p {
+    color: #111 !important;
+}
+/* Bouton unifié : Fond noir, texte blanc, bordure dorée au hover */
+.about-fusion-section .btn-gold {
+    background-color: #111 !important;
+    color: #fff !important;
+    border: 2px solid transparent;
+    padding: 12px 30px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+.about-fusion-section .btn-gold:hover {
+    background-color: var(--secondary-color) !important;
+    color: #111 !important;
+    border-color: #111;
+}
+
+/* --- CARROUSEL & IMAGES --- */
+.carousel-slide {
+    background-size: cover;
+    background-position: center;
+    filter: brightness(1.18); /* Ton réglage d'éclaircissement */
+}
+
+/* --- RESPONSIVE VIDEO 16:9 --- */
+.video-16by9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    background: #000;
+    border-radius: 1.5rem;
+}
+.video-16by9 iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- TIKTOK ICON FOOTER --- */
 .footer .social-icons .social-tiktok-icon {
     color: #d4b24a;
     width: 28px;
     height: 28px;
     display: inline-block;
-    transition: color 0.2s;
+    transition: transform 0.2s, color 0.2s;
 }
 .footer .social-icons a:hover .social-tiktok-icon {
     color: #fff;
-}
-.hero-content.hero-content-slide-2 { display: none; }
-.carousel-slide.slide-2.active ~ .hero-content.hero-content-slide-2 { display: block; }
-.carousel-slide.slide-1.active ~ .hero-content.hero-content-slide-2 { display: none; }
-/* Removed duplicate/old gold color for about-fusion-section h2 to unify with section-title */
-/* Sobre Nosotros (about-fusion-section) fond blanc avec opacité */
-.about-fusion-bg {
-    background: rgba(255,255,255,0.85);
-    width: 100%;
-    padding: 48px 0 48px 0;
-}
-/* Removed duplicate/old gold color for about-fusion-section h2 to unify with section-title */
-.about-fusion-section .fusion-text p,
-.about-fusion-section .fusion-text {
-    color: #111 !important;
-}
-.about-fusion-section .btn-gold {
-    border-color: #ffd700;
-    color: #ffd700;
-    background: transparent;
-    transition: background 0.2s, color 0.2s;
-}
-.about-fusion-section .btn-gold:hover {
-    background: #ffd700;
-    color: #222;
-}
-
-.about-fusion-section .btn-gold {
-    background-color: #111 !important;
-    color: #fff !important;
-    border: none;
-}
-
-.companies-section .section-title,
-.testimonials-section .section-title {
-    color: #d4af37 !important;
+    transform: scale(1.1);
 }
 
 .fusion-grid {
@@ -76,9 +101,9 @@
 }
 
 .about-fusion-section h2,
-services-section .section-title,
-companies-section .section-title,
-testimonials-section .section-title {
+.services-section .section-title,
+.companies-section .section-title,
+.testimonials-section .section-title {
     color: #d4af37 !important;
 }
 /* Eclaircir les images du carrousel principal */
