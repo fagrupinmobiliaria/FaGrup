@@ -40,15 +40,7 @@
     color: #fff !important;
     border: none;
 }
-.about-fusion-section .fusion-text a.btn {
-    border-color: #222;
-    color: #222;
-}
-.about-fusion-section .fusion-text a.btn:hover {
-    background: #222;
-    color: #fff;
-.about-fusion-section h2,
-.services-section .section-title,
+
 .companies-section .section-title,
 .testimonials-section .section-title {
     color: #d4af37 !important;
@@ -88,7 +80,6 @@ services-section .section-title,
 companies-section .section-title,
 testimonials-section .section-title {
     color: #d4af37 !important;
-}
 }
 /* Eclaircir les images du carrousel principal */
 .carousel-slide {
