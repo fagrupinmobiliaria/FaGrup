@@ -1,359 +1,89 @@
-// Carousel scroll for Empresas Asociadas
-document.addEventListener('DOMContentLoaded', function() {
-    const gridWrapper = document.querySelector('.companies-grid-wrapper');
-    const grid = document.querySelector('.companies-grid');
-    const cards = document.querySelectorAll('.company-card');
-    const leftBtn = document.querySelector('.companies-arrow.left');
-    const rightBtn = document.querySelector('.companies-arrow.right');
-    let currentIndex = 0;
-
-    function getCardWidth() {
-        if (!cards[0]) return 0;
-        const style = window.getComputedStyle(cards[0]);
-        const marginRight = parseInt(style.marginRight) || 0;
-        const marginLeft = parseInt(style.marginLeft) || 0;
-        return cards[0].offsetWidth + marginLeft + marginRight;
-    }
-
-    function scrollToCard(index) {
-        if (!cards[index]) return;
-        const wrapperWidth = gridWrapper.offsetWidth;
-        const cardWidth = cards[index].offsetWidth;
-        const cardOffset = cards[index].offsetLeft;
-        // Center the card in the wrapper
-        const scrollLeft = cardOffset - (wrapperWidth - cardWidth) / 2;
-        gridWrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-        currentIndex = index;
-        updateArrows();
-    }
-
-    function updateArrows() {
-        leftBtn.disabled = currentIndex === 0;
-        rightBtn.disabled = currentIndex === cards.length - 1;
-    }
-
-    function handleArrowClick(direction) {
-        if (direction === 'left' && currentIndex > 0) {
-            scrollToCard(currentIndex - 1);
-        } else if (direction === 'right' && currentIndex < cards.length - 1) {
-            scrollToCard(currentIndex + 1);
-        }
-    }
-
-    if (gridWrapper && grid && leftBtn && rightBtn && cards.length > 0) {
-        leftBtn.addEventListener('click', () => handleArrowClick('left'));
-        rightBtn.addEventListener('click', () => handleArrowClick('right'));
-
-        // On resize, re-center the current card
-        window.addEventListener('resize', () => {
-            scrollToCard(currentIndex);
-        });
-
-        // On load, center the first card
-        scrollToCard(0);
-
-        // On mobile, prevent manual scroll
-        gridWrapper.addEventListener('touchmove', function(e) {
-            if (window.innerWidth <= 900) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    }
-});
-// --- Auto-play Facebook video on scroll into view ---
-document.addEventListener('DOMContentLoaded', function() {
-    const fbVideoSection = document.querySelector('.about-video-absolute-fullwidth');
-    const fbIframe = fbVideoSection ? fbVideoSection.querySelector('iframe') : null;
-    let hasPlayed = false;
-    if (fbVideoSection && fbIframe) {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !hasPlayed) {
-                    // Add autoplay=1 to the iframe src if not present
-                    let src = fbIframe.getAttribute('src');
-                    if (!src.includes('autoplay=1')) {
-                        src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
-                        fbIframe.setAttribute('src', src);
-                    }
-                    hasPlayed = true;
-                    observer.disconnect();
-                }
-            });
-        }, { threshold: 0.3 });
-        observer.observe(fbVideoSection);
-    }
-});
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
-
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
-    });
-}
-
-// Navbar Scroll Effect
-const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Add scrolled class for styling
-    if (currentScroll > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
-});
-
-// Language Selector Dropdown Toggle
-function toggleDropdown(event) {
-    event.preventDefault();
-    const languageSelector = document.querySelector('.language-selector');
-    languageSelector.classList.toggle('show');
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    const languageSelector = document.querySelector('.language-selector');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    
-    if (languageSelector && !languageSelector.contains(event.target)) {
-        languageSelector.classList.remove('show');
-    }
-});
-
-// Set Language Function
-function setLang(lang) {
-    const flagImages = {
-        'es': 'images/flag_es.png',
-        'ca': 'images/flag_ca.png',
-        'fr': 'images/flag_fr.png',
-        'en': 'images/flag_en.png'
-    };
-    
-    const langTexts = {
-        'es': 'ES',
-        'ca': 'CAT',
-        'fr': 'FR',
-        'en': 'EN'
-    };
-    
-    // Update displayed flag and text
-    const currentFlag = document.getElementById('current-flag');
-    const currentLangText = document.getElementById('current-lang-text');
-    
-    if (currentFlag && currentLangText) {
-        currentFlag.src = flagImages[lang];
-        currentLangText.textContent = langTexts[lang];
-    }
-    
-    // Close dropdown
-    const languageSelector = document.querySelector('.language-selector');
-    if (languageSelector) {
-        languageSelector.classList.remove('show');
-    }
-    
-    // Change language using existing function
-    changeLanguage(lang);
-}
-
-// Hero Carousel Functionality
-let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel-slide');
-const indicators = document.querySelectorAll('.indicator');
-const heroContent = document.querySelector('.hero-content');
-
-function goToSlide(slideIndex) {
-    // Remove active class from all slides and indicators
-    slides.forEach(slide => slide.classList.remove('active'));
-    indicators.forEach(indicator => indicator.classList.remove('active'));
-    
-    // Add active class to selected slide and indicator
-    slides[slideIndex].classList.add('active');
-    indicators[slideIndex].classList.add('active');
-    
-    // Hide title on slide 2, 3, 4; show only on slide 1
-    if (heroContent) {
-        if (slideIndex === 1 || slideIndex === 2 || slideIndex === 3) {
-            heroContent.style.opacity = '0';
-            heroContent.style.visibility = 'hidden';
-        } else {
-            heroContent.style.opacity = '1';
-            heroContent.style.visibility = 'visible';
-        }
-    }
-    
-    currentSlide = slideIndex;
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    goToSlide(currentSlide);
-}
-
-// Auto-advance carousel every 5 seconds
-if (slides.length > 0) {
-    setInterval(nextSlide, 5000);
-}
-
-// Testimonials Carousel
-function initTestimonialsCarousel() {
-    const testimonialSlides = document.querySelectorAll('.testimonials-slide');
-    const testimonialIndicators = document.querySelectorAll('.testimonials-indicator');
-    if (testimonialSlides.length === 0 || testimonialIndicators.length === 0) {
-        return;
-    }
-
-    let currentTestimonial = 0;
-
-    const showTestimonial = (index) => {
-        testimonialSlides.forEach(slide => slide.classList.remove('active'));
-        testimonialIndicators.forEach(indicator => indicator.classList.remove('active'));
-        testimonialSlides[index].classList.add('active');
-        testimonialIndicators[index].classList.add('active');
-    };
-
-    const nextTestimonial = () => {
-        currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
-        showTestimonial(currentTestimonial);
-    };
-
-    let testimonialInterval = setInterval(nextTestimonial, 6000);
-
-    testimonialIndicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            currentTestimonial = index;
-            showTestimonial(currentTestimonial);
-            clearInterval(testimonialInterval);
-            testimonialInterval = setInterval(nextTestimonial, 6000);
-        });
-    });
-}
-
-// Smooth Scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-    } else {
-        navbar.style.backgroundColor = 'var(--white)';
-    }
-});
-
-// Form Validation (for contact page)
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const nombre = document.getElementById('nombre').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const telefono = document.getElementById('telefono').value.trim();
-        const mensaje = document.getElementById('mensaje').value.trim();
-        const privacyConsent = document.getElementById('privacy-consent');
-        const selectedLang = localStorage.getItem('selectedLanguage') || 'es';
-        const t = translations[selectedLang] || translations.es;
-        
-        // Simple validation
-        if (!nombre || !email || !mensaje) {
-            alert('Por favor, completa todos los campos obligatorios.');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Por favor, introduce un email válido.');
-            return;
-        }
-
-        if (!privacyConsent || !privacyConsent.checked) {
-            alert(t.contact_consent_error || 'Debes aceptar la Política de Privacidad y el Aviso Legal para enviar el formulario.');
-            return;
-        }
-        
-        // If validation passes
-        alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-        contactForm.reset();
-    });
-}
-// Animation on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+// ==================== CONFIG / HELPERS ====================
+const flagImages = {
+    es: 'images/flag_es.png',
+    ca: 'images/flag_ca.png',
+    fr: 'images/flag_fr.png',
+    en: 'images/flag_en.png'
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+const langTexts = {
+    es: 'ES',
+    ca: 'CAT',
+    fr: 'FR',
+    en: 'EN'
+};
+
+function updateLanguageIndicator(lang) {
+    const currentFlag = document.getElementById('current-flag');
+    const currentLangText = document.getElementById('current-lang-text');
+
+    if (currentFlag && currentLangText) {
+        currentFlag.src = flagImages[lang] || flagImages.es;
+        currentLangText.textContent = langTexts[lang] || 'ES';
+    }
+}
+
+function showNotification(message) {
+    if (!message) return;
+
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background-color: var(--gold);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 10000;
+        font-weight: 600;
+        animation: slideIn 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Inject notification animations once
+(function injectNotificationStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-    });
-}, observerOptions);
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+})();
 
-// Observe elements with animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.service-card, .company-card, .feature-card, .legal-card, .scroll-reveal');
-    
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(el);
-    });
-});
-
-// Translations object
+// ==================== TRANSLATIONS ====================
 const translations = {
     es: {
-        // Navigation
         nav_inicio: "Inicio",
         nav_servicios: "Servicios",
         nav_nosotros: "Sobre Nosotros",
         nav_empresas: "Empresas Asociadas",
         nav_legal: "Departamento Legal",
         nav_contacto: "Contacto",
-        
-        // Hero Section
+
         hero_title: "FA GRUP - Inmobiliaria en Barcelona",
         hero_slogan: "Siempre Contigo",
         hero_subtitle: "Tu inmobiliaria de confianza en Barcelona. Acompañamiento profesional y cercano en compra, venta y alquiler",
         btn_contact: "Contáctanos",
-        
-        // Intro Section
+
         intro_title: "¿Qué es FA GRUP?",
         intro_text: "FA GRUP es una inmobiliaria de Barcelona fundada en 2019, especializada en ofrecer un servicio integral en el sector inmobiliario. Acompañamos al cliente durante todas las etapas de compra, venta o alquiler con profesionalidad y cercanía. Nos distinguimos por nuestra atención personalizada, conocimiento del mercado local y compromiso con la transparencia.",
-        
-        // Services
+
         services_title: "Nuestros Servicios",
         service_inmobiliaria: "Inmobiliaria",
         service_inmobiliaria_desc: "Venta de pisos con asesoramiento profesional. Acompañamos a nuestros clientes en cada paso de la compra de su vivienda.",
@@ -362,29 +92,25 @@ const translations = {
         service_viajes: "Agencia de Viajes",
         service_viajes_desc: "Experiencias únicas, planificadas para ti. Organizamos tu viaje completo con atención profesional.",
         btn_more_info: "Más información",
-        
-        // About Brief
+
         about_title: "Sobre Nosotros",
         about_text: "Somos una asesoría empresarial especializada en ofrecer soluciones integrales en las áreas fiscal, contable, laboral y estratégica. Nuestro objetivo es acompañar a empresas, autónomos y emprendedores en la gestión eficiente de su actividad, aportando claridad y un enfoque orientado a resultados.",
         btn_read_more: "Leer más",
-        
-        // Companies
+
         companies_title: "Empresas Asociadas",
         company_fa_asesoria: "FA Asesoría Global",
         company_fa_desc: "Servicios de abogados, asesoría legal y jurídica. Especialistas en derecho penal, laboral, familiar, civil y administrativo.",
         company_cictaec: "CICTAEC",
         company_cictaec_desc: "Empresas, cultura, turismo y negocios. Soluciones integrales para el desarrollo empresarial y cultural.",
         btn_visit_web: "Visitar web",
-        
-        // Quick Contact
+
         contact_hero_title: "Especialistas que entienden el arte de Ventas",
         contact_question: "¿Buscas tu hogar ideal en Barcelona? Contáctanos y te acompañaremos en todo el proceso.",
         contact_phone: "Teléfono",
         contact_email: "Email",
         contact_address: "Dirección",
         btn_send_query: "Envíanos tu consulta",
-        
-        // Contact Page
+
         contact_hero_subtitle: "Estamos aquí para ayudarte. Contáctanos y te responderemos a la brevedad",
         contact_info_title: "Información de Contacto",
         contact_phone_title: "Teléfono",
@@ -407,14 +133,12 @@ const translations = {
         contact_form_submit: "Enviar consulta",
         contact_map_title: "Nuestra Ubicación",
 
-        // Cookie Modal
         cookie_title: "Política de cookies",
         cookie_message: "Usamos cookies técnicas necesarias y, solo con tu consentimiento, cookies de análisis o personalización.",
         cookie_accept: "Aceptar",
         cookie_reject: "Rechazar",
         cookie_config: "Ver politica de privacidad",
 
-        // Testimonials
         testimonials_title: "¿Qué opinan de nosotros?",
         testimonial_1: "\"Atencion excelente y trato muy cercano. Nos ayudaron en todo el proceso de compra.\"",
         testimonial_1_author: "- Laura M.",
@@ -423,11 +147,9 @@ const translations = {
         testimonial_3: "\"Gestion rapida y asesoramiento claro. Todo fue sencillo.\"",
         testimonial_3_author: "- Ana P.",
         btn_more_reviews: "Ver mas reseñas",
-        
-        // Social
+
         social_title: "Síguenos en Redes Sociales",
-        
-        // Footer
+
         footer_slogan: "Soluciones integrales para empresas y particulares",
         footer_services: "Servicios",
         footer_company: "Empresa",
@@ -435,8 +157,7 @@ const translations = {
         footer_legal: "Aviso Legal",
         footer_privacy: "Política de Privacidad",
         footer_rights: "Todos los derechos reservados",
-        
-        // Legal Page
+
         legal_hero_title: "Departamento Legal",
         legal_hero_subtitle: "FA Asesoría Global - Asesoramiento jurídico integral",
         legal_intro_title: "Servicios del Departamento Legal",
@@ -444,8 +165,7 @@ const translations = {
         legal_intro_p2: "Trabajamos con metodologías actualizadas, cumpliendo todas las normativas vigentes y garantizando un acompañamiento seguro, profesional y transparente en cada procedimiento.",
         legal_section1_title: "Derecho Penal, Laboral y de Familia",
         legal_section1_subtitle: "Defensa especializada y acompañamiento en procedimientos legales complejos",
-        
-        // Privacy Page
+
         privacy_title: "Política de Privacidad",
         privacy_subtitle: "FA GRUP - Protección de Datos Personales",
         privacy_last_update: "Última actualización: 4 de febrero de 2026",
@@ -462,7 +182,6 @@ const translations = {
         privacy_section11_title: "11. Reclamaciones",
         privacy_section12_title: "12. Contacto",
 
-        // Legal Notice Page
         aviso_page_title: "Aviso Legal - FA GRUP",
         aviso_title: "Aviso Legal",
         aviso_subtitle: "Información legal y condiciones de uso del sitio web de FA GRUP",
@@ -499,26 +218,23 @@ const translations = {
         aviso_phone_label: "Teléfono:",
         aviso_contact_address_label: "Dirección:"
     },
+
     ca: {
-        // Navigation
         nav_inicio: "Inici",
         nav_servicios: "Serveis",
         nav_nosotros: "Sobre Nosaltres",
         nav_empresas: "Empreses Associades",
         nav_legal: "Departament Legal",
         nav_contacto: "Contacte",
-        
-        // Hero Section
+
         hero_title: "FA GRUP - Immobiliària a Barcelona",
         hero_slogan: "Sempre amb Tu",
         hero_subtitle: "La teva immobiliària de confiança a Barcelona. Acompanyament professional i proper en compra, venda i lloguer",
         btn_contact: "Contacta'ns",
-        
-        // Intro Section
+
         intro_title: "Què és FA GRUP?",
         intro_text: "FA GRUP és una immobiliària de Barcelona fundada el 2019, especialitzada en oferir un servei integral al sector immobiliari. Acompanyem el client durant totes les etapes de compra, venda o lloguer amb professionalitat i proximitat. Ens distingim per la nostra atenció personalitzada, coneixement del mercat local i compromís amb la transparència.",
-        
-        // Services
+
         services_title: "Els Nostres Serveis",
         service_inmobiliaria: "Immobiliària",
         service_inmobiliaria_desc: "Venda de pisos amb assessorament professional. Acompanyem els nostres clients en cada pas de la compra del seu habitatge.",
@@ -527,29 +243,25 @@ const translations = {
         service_viajes: "Agència de Viatges",
         service_viajes_desc: "Experiències úniques, planificades per a tu. Organitzem el teu viatge complet amb atenció professional.",
         btn_more_info: "Més informació",
-        
-        // About Brief
+
         about_title: "Sobre Nosaltres",
         about_text: "Som una assessoria empresarial especialitzada en oferir solucions integrals en les àrees fiscal, comptable, laboral i estratègica. El nostre objectiu és acompanyar empreses, autònoms i emprenedors en la gestió eficient de la seva activitat, aportant claredat i un enfocament orientat a resultats.",
         btn_read_more: "Llegir més",
-        
-        // Companies
+
         companies_title: "Empreses Associades",
         company_fa_asesoria: "FA Assessoria Global",
         company_fa_desc: "Serveis d'advocats, assessoria legal i jurídica. Especialistes en dret penal, laboral, familiar, civil i administratiu.",
         company_cictaec: "CICTAEC",
         company_cictaec_desc: "Empreses, cultura, turisme i negocis. Solucions integrals per al desenvolupament empresarial i cultural.",
         btn_visit_web: "Visitar web",
-        
-        // Quick Contact
+
         contact_hero_title: "Especialistes que entenen l'art de Vendes",
         contact_question: "Busques la teva llar ideal a Barcelona? Contacta'ns i t'acompanyarem en tot el procés.",
         contact_phone: "Telèfon",
         contact_email: "Correu electrònic",
         contact_address: "Adreça",
         btn_send_query: "Envia'ns la teva consulta",
-        
-        // Contact Page
+
         contact_hero_subtitle: "Estem aquí per ajudar-te. Contacta'ns i et respondrem al més aviat possible",
         contact_info_title: "Informació de Contacte",
         contact_phone_title: "Telèfon",
@@ -572,14 +284,12 @@ const translations = {
         contact_form_submit: "Enviar consulta",
         contact_map_title: "La nostra Ubicació",
 
-        // Cookie Modal
         cookie_title: "Política de cookies",
         cookie_message: "Fem servir cookies tècniques necessàries i, només amb el teu consentiment, cookies d'anàlisi o personalització.",
         cookie_accept: "Acceptar",
         cookie_reject: "Rebutjar",
         cookie_config: "Veure politica de privacitat",
 
-        // Testimonials
         testimonials_title: "Que opinen de nosaltres?",
         testimonial_1: "\"Atencio excel.lent i tracte molt proper. Ens van ajudar en tot el proces de compra.\"",
         testimonial_1_author: "- Laura M.",
@@ -588,11 +298,9 @@ const translations = {
         testimonial_3: "\"Gestio rapida i assessorament clar. Tot va ser senzill.\"",
         testimonial_3_author: "- Ana P.",
         btn_more_reviews: "Veure mes ressenyes",
-        
-        // Social
+
         social_title: "Segueix-nos a les Xarxes Socials",
-        
-        // Footer
+
         footer_slogan: "Solucions integrals per a empreses i particulars",
         footer_services: "Serveis",
         footer_company: "Empresa",
@@ -600,8 +308,7 @@ const translations = {
         footer_legal: "Avís Legal",
         footer_privacy: "Política de Privacitat",
         footer_rights: "Tots els drets reservats",
-        
-        // Legal Page
+
         legal_hero_title: "Departament Legal",
         legal_hero_subtitle: "FA Assessoria Global - Assessorament jurídic integral",
         legal_intro_title: "Serveis del Departament Legal",
@@ -609,8 +316,7 @@ const translations = {
         legal_intro_p2: "Treballem amb metodologies actualitzades, complint totes les normatives vigents i garantint un acompanyament segur, professional i transparent en cada procediment.",
         legal_section1_title: "Dret Penal, Laboral i de Família",
         legal_section1_subtitle: "Defensa especialitzada i acompanyament en procediments legals complexos",
-        
-        // Privacy Page
+
         privacy_title: "Política de Privacitat",
         privacy_subtitle: "FA GRUP - Protecció de Dades Personals",
         privacy_last_update: "Última actualització: 4 de febrer de 2026",
@@ -627,7 +333,6 @@ const translations = {
         privacy_section11_title: "11. Reclamacions",
         privacy_section12_title: "12. Contacte",
 
-        // Legal Notice Page
         aviso_page_title: "Avís Legal - FA GRUP",
         aviso_title: "Avís Legal",
         aviso_subtitle: "Informació legal i condicions d'ús del lloc web de FA GRUP",
@@ -664,26 +369,23 @@ const translations = {
         aviso_phone_label: "Telèfon:",
         aviso_contact_address_label: "Adreça:"
     },
+
     fr: {
-        // Navigation
         nav_inicio: "Accueil",
         nav_servicios: "Services",
         nav_nosotros: "À Propos",
         nav_empresas: "Entreprises Associées",
         nav_legal: "Département Juridique",
         nav_contacto: "Contact",
-        
-        // Hero Section
+
         hero_title: "FA GRUP - Agence Immobilière à Barcelone",
         hero_slogan: "Toujours avec Vous",
         hero_subtitle: "Votre agence immobilière de confiance à Barcelone. Accompagnement professionnel et proche pour l'achat, la vente et la location",
         btn_contact: "Contactez-nous",
-        
-        // Intro Section
+
         intro_title: "Qu'est-ce que FA GRUP?",
         intro_text: "FA GRUP est une agence immobilière de Barcelone fondée en 2019, spécialisée dans l'offre d'un service intégral dans le secteur immobilier. Nous accompagnons le client pendant toutes les étapes d'achat, de vente ou de location avec professionnalisme et proximité. Nous nous distinguons par notre attention personnalisée, notre connaissance du marché local et notre engagement envers la transparence.",
-        
-        // Services
+
         services_title: "Nos Services",
         service_inmobiliaria: "Immobilier",
         service_inmobiliaria_desc: "Vente d'appartements avec conseil professionnel. Nous accompagnons nos clients à chaque étape de l'achat de leur logement.",
@@ -692,29 +394,25 @@ const translations = {
         service_viajes: "Agence de Voyages",
         service_viajes_desc: "Expériences uniques, planifiées pour vous. Nous organisons votre voyage complet avec une attention professionnelle.",
         btn_more_info: "Plus d'informations",
-        
-        // About Brief
+
         about_title: "À Propos de Nous",
         about_text: "Nous sommes un cabinet de conseil spécialisé dans l'offre de solutions intégrales dans les domaines fiscal, comptable, du travail et stratégique. Notre objectif est d'accompagner les entreprises, les indépendants et les entrepreneurs dans la gestion efficace de leur activité, en apportant clarté et une approche orientée résultats.",
         btn_read_more: "En savoir plus",
-        
-        // Companies
+
         companies_title: "Entreprises Associées",
         company_fa_asesoria: "FA Conseil Global",
         company_fa_desc: "Services d'avocats, conseil juridique. Spécialistes en droit pénal, du travail, de la famille, civil et administratif.",
         company_cictaec: "CICTAEC",
         company_cictaec_desc: "Entreprises, culture, tourisme et affaires. Solutions intégrales pour le développement entrepreneurial et culturel.",
         btn_visit_web: "Visiter le site",
-        
-        // Quick Contact
+
         contact_hero_title: "Spécialistes qui comprennent l'art de la Vente",
         contact_question: "Vous cherchez votre logement idéal à Barcelone? Contactez-nous et nous vous accompagnerons tout au long du processus.",
         contact_phone: "Téléphone",
         contact_email: "Email",
         contact_address: "Adresse",
         btn_send_query: "Envoyez-nous votre demande",
-        
-        // Contact Page
+
         contact_hero_subtitle: "Nous sommes là pour vous aider. Contactez-nous et nous vous répondrons dans les plus brefs délais",
         contact_info_title: "Informations de Contact",
         contact_phone_title: "Téléphone",
@@ -737,14 +435,12 @@ const translations = {
         contact_form_submit: "Envoyer la demande",
         contact_map_title: "Notre Emplacement",
 
-        // Cookie Modal
         cookie_title: "Politique de cookies",
         cookie_message: "Nous utilisons des cookies techniques nécessaires et, uniquement avec votre consentement, des cookies d'analyse ou de personnalisation.",
         cookie_accept: "Accepter",
         cookie_reject: "Refuser",
         cookie_config: "Voir la politique de confidentialite",
 
-        // Testimonials
         testimonials_title: "Que pensent-ils de nous?",
         testimonial_1: "\"Service excellent et tres proche. Ils nous ont aides a chaque etape.\"",
         testimonial_1_author: "- Laura M.",
@@ -753,11 +449,9 @@ const translations = {
         testimonial_3: "\"Gestion rapide et conseils clairs. Tout a ete simple.\"",
         testimonial_3_author: "- Ana P.",
         btn_more_reviews: "Voir plus d'avis",
-        
-        // Social
+
         social_title: "Suivez-nous sur les Réseaux Sociaux",
-        
-        // Footer
+
         footer_slogan: "Solutions intégrales pour entreprises et particuliers",
         footer_services: "Services",
         footer_company: "Entreprise",
@@ -765,8 +459,7 @@ const translations = {
         footer_legal: "Mentions Légales",
         footer_privacy: "Politique de Confidentialité",
         footer_rights: "Tous droits réservés",
-        
-        // Legal Page
+
         legal_hero_title: "Département Juridique",
         legal_hero_subtitle: "FA Conseil Global - Conseil juridique intégral",
         legal_intro_title: "Services du Département Juridique",
@@ -774,8 +467,7 @@ const translations = {
         legal_intro_p2: "Nous travaillons avec des méthodologies actualisées, en respectant toutes les réglementations en vigueur et en garantissant un accompagnement sûr, professionnel et transparent à chaque procédure.",
         legal_section1_title: "Droit Pénal, du Travail et de la Famille",
         legal_section1_subtitle: "Défense spécialisée et accompagnement dans les procédures juridiques complexes",
-        
-        // Privacy Page
+
         privacy_title: "Politique de Confidentialité",
         privacy_subtitle: "FA GRUP - Protection des Données Personnelles",
         privacy_last_update: "Dernière mise à jour : 4 février 2026",
@@ -792,7 +484,6 @@ const translations = {
         privacy_section11_title: "11. Réclamations",
         privacy_section12_title: "12. Contact",
 
-        // Legal Notice Page
         aviso_page_title: "Mentions Légales - FA GRUP",
         aviso_title: "Mentions Légales",
         aviso_subtitle: "Informations légales et conditions d'utilisation du site web de FA GRUP",
@@ -829,26 +520,23 @@ const translations = {
         aviso_phone_label: "Téléphone :",
         aviso_contact_address_label: "Adresse :"
     },
+
     en: {
-        // Navigation
         nav_inicio: "Home",
         nav_servicios: "Services",
         nav_nosotros: "About Us",
         nav_empresas: "Associated Companies",
         nav_legal: "Legal Department",
         nav_contacto: "Contact",
-        
-        // Hero Section
+
         hero_title: "FA GRUP - Real Estate in Barcelona",
         hero_slogan: "Always with You",
         hero_subtitle: "Your trusted real estate agency in Barcelona. Professional and close support in buying, selling and renting",
         btn_contact: "Contact Us",
-        
-        // Intro Section
+
         intro_title: "What is FA GRUP?",
         intro_text: "FA GRUP is a Barcelona real estate agency founded in 2019, specialized in offering a comprehensive service in the real estate sector. We accompany clients through all stages of buying, selling or renting with professionalism and proximity. We distinguish ourselves by our personalized attention, knowledge of the local market and commitment to transparency.",
-        
-        // Services
+
         services_title: "Our Services",
         service_inmobiliaria: "Real Estate",
         service_inmobiliaria_desc: "Sale of apartments with professional advice. We accompany our clients at every step of purchasing their home.",
@@ -857,29 +545,25 @@ const translations = {
         service_viajes: "Travel Agency",
         service_viajes_desc: "Unique experiences, planned for you. We organize your complete trip with professional attention.",
         btn_more_info: "More information",
-        
-        // About Brief
+
         about_title: "About Us",
         about_text: "We are a business consultancy specialized in offering comprehensive solutions in the fiscal, accounting, labor and strategic areas. Our goal is to accompany companies, self-employed and entrepreneurs in the efficient management of their activity, providing clarity and a results-oriented approach.",
         btn_read_more: "Read more",
-        
-        // Companies
+
         companies_title: "Associated Companies",
         company_fa_asesoria: "FA Global Advisory",
         company_fa_desc: "Lawyers services, legal and juridical advisory. Specialists in criminal, labor, family, civil and administrative law.",
         company_cictaec: "CICTAEC",
         company_cictaec_desc: "Companies, culture, tourism and business. Comprehensive solutions for business and cultural development.",
         btn_visit_web: "Visit website",
-        
-        // Quick Contact
+
         contact_hero_title: "Specialists who understand the art of Sales",
         contact_question: "Looking for your ideal home in Barcelona? Contact us and we will accompany you throughout the process.",
         contact_phone: "Phone",
         contact_email: "Email",
         contact_address: "Address",
         btn_send_query: "Send us your inquiry",
-        
-        // Contact Page
+
         contact_hero_subtitle: "We are here to help you. Contact us and we will respond as soon as possible",
         contact_info_title: "Contact Information",
         contact_phone_title: "Phone",
@@ -902,14 +586,12 @@ const translations = {
         contact_form_submit: "Submit inquiry",
         contact_map_title: "Our Location",
 
-        // Cookie Modal
         cookie_title: "Cookie Policy",
         cookie_message: "We use necessary technical cookies and, only with your consent, analytics or personalization cookies.",
         cookie_accept: "Accept",
         cookie_reject: "Reject",
         cookie_config: "View privacy policy",
 
-        // Testimonials
         testimonials_title: "What do clients think about us?",
         testimonial_1: "\"Excellent service and very close attention. They helped us throughout the purchase.\"",
         testimonial_1_author: "- Laura M.",
@@ -918,11 +600,9 @@ const translations = {
         testimonial_3: "\"Fast handling and clear guidance. Everything was easy.\"",
         testimonial_3_author: "- Ana P.",
         btn_more_reviews: "See more reviews",
-        
-        // Social
+
         social_title: "Follow us on Social Networks",
-        
-        // Footer
+
         footer_slogan: "Comprehensive solutions for companies and individuals",
         footer_services: "Services",
         footer_company: "Company",
@@ -930,8 +610,7 @@ const translations = {
         footer_legal: "Legal Notice",
         footer_privacy: "Privacy Policy",
         footer_rights: "All rights reserved",
-        
-        // Legal Page
+
         legal_hero_title: "Legal Department",
         legal_hero_subtitle: "FA Global Advisory - Comprehensive legal counsel",
         legal_intro_title: "Legal Department Services",
@@ -939,8 +618,7 @@ const translations = {
         legal_intro_p2: "We work with updated methodologies, complying with all current regulations and guaranteeing safe, professional and transparent support in every procedure.",
         legal_section1_title: "Criminal, Labor and Family Law",
         legal_section1_subtitle: "Specialized defense and support in complex legal procedures",
-        
-        // Privacy Page
+
         privacy_title: "Privacy Policy",
         privacy_subtitle: "FA GRUP - Personal Data Protection",
         privacy_last_update: "Last update: February 4, 2026",
@@ -957,7 +635,6 @@ const translations = {
         privacy_section11_title: "11. Complaints",
         privacy_section12_title: "12. Contact",
 
-        // Legal Notice Page
         aviso_page_title: "Legal Notice - FA GRUP",
         aviso_title: "Legal Notice",
         aviso_subtitle: "Legal information and terms of use of FA GRUP's website",
@@ -996,11 +673,54 @@ const translations = {
     }
 };
 
+// ==================== LANGUAGE ====================
+function changeLanguage(lang) {
+    const t = translations[lang] || translations.es;
+    localStorage.setItem('selectedLanguage', lang);
+    updateLanguageIndicator(lang);
+
+    document.querySelectorAll('[data-translate]').forEach((element) => {
+        const key = element.getAttribute('data-translate');
+        if (!t[key]) return;
+
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = t[key];
+        } else {
+            element.textContent = t[key];
+        }
+    });
+
+    const messages = {
+        es: '🇪🇸 Idioma cambiado a Español',
+        ca: '🇨🇦 Idioma canviat a Català',
+        fr: '🇫🇷 Langue changée en Français',
+        en: '🇬🇧 Language changed to English'
+    };
+
+    showNotification(messages[lang] || messages.es);
+}
+
+function setLang(lang) {
+    changeLanguage(lang);
+
+    const languageSelector = document.querySelector('.language-selector');
+    if (languageSelector) {
+        languageSelector.classList.remove('show');
+    }
+}
+
+function toggleDropdown(event) {
+    event.preventDefault();
+    const languageSelector = document.querySelector('.language-selector');
+    if (languageSelector) {
+        languageSelector.classList.toggle('show');
+    }
+}
+
+// ==================== COOKIE CONSENT ====================
 function initCookieConsent() {
     const modal = document.getElementById('cookie-consent-modal');
-    if (!modal) {
-        return;
-    }
+    if (!modal) return;
 
     const acceptButton = document.getElementById('cookie-accept');
     const rejectButton = document.getElementById('cookie-reject');
@@ -1015,9 +735,7 @@ function initCookieConsent() {
     if (!savedConsent) {
         modal.classList.add('is-visible');
         document.body.classList.add('cookie-modal-open');
-        if (acceptButton) {
-            acceptButton.focus();
-        }
+        if (acceptButton) acceptButton.focus();
     }
 
     if (acceptButton) {
@@ -1042,136 +760,343 @@ function initCookieConsent() {
     }
 }
 
-// Language Change Function
-function changeLanguage(lang) {
-    // Save language preference
-    localStorage.setItem('selectedLanguage', lang);
-    
-    // Get translations for selected language
-    const t = translations[lang];
-    
-    // Update all translatable elements
-    document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (t[key]) {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = t[key];
-            } else {
-                element.textContent = t[key];
-            }
-        }
+// ==================== MOBILE MENU ====================
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    if (!hamburger || !navMenu) return;
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
     });
-    
-    // Update navigation links
-    const navLinks = document.querySelectorAll('.nav-menu a:not(.language-selector *)');
-    if (navLinks.length >= 5) {
-        navLinks[0].textContent = t.nav_inicio;
-        navLinks[1].textContent = t.nav_servicios;
-        navLinks[2].textContent = t.nav_nosotros;
-        navLinks[3].textContent = t.nav_legal;
-        navLinks[4].textContent = t.nav_contacto;
-    }
-    
-    // Show notification
-    const messages = {
-        'es': '🇪🇸 Idioma cambiado a Español',
-        'ca': '🇪🇸 Idioma canviat a Català', 
-        'fr': '🇫🇷 Langue changée en Français'
-    };
-    
-    showNotification(messages[lang]);
+
+    document.querySelectorAll('.nav-menu a').forEach((link) => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
 }
 
-// Apply translations on page load
-document.addEventListener('DOMContentLoaded', () => {
-    initCookieConsent();
+// ==================== NAVBAR ====================
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    let ticking = false;
+
+    const updateNavbar = () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateNavbar);
+            ticking = true;
+        }
+    });
+
+    updateNavbar();
+}
+
+function setActiveNavLink() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    navLinks.forEach(link => {
+    const navLinks = document.querySelectorAll('.nav-menu a[href]');
+
+    navLinks.forEach((link) => {
         link.classList.remove('active');
         if (link.getAttribute('href') === currentPage) {
             link.classList.add('active');
         }
     });
+}
 
-    // Load saved language preference and apply translations
+// ==================== HERO CAROUSEL ====================
+let currentSlide = 0;
+let slides = [];
+let indicators = [];
+let heroContent = null;
+let heroInterval = null;
+
+function updateHeroContentVisibility(index) {
+    if (!heroContent) return;
+
+    // Show content only on first slide to match your current JS logic
+    if (index === 0) {
+        heroContent.style.opacity = '1';
+        heroContent.style.visibility = 'visible';
+    } else {
+        heroContent.style.opacity = '0';
+        heroContent.style.visibility = 'hidden';
+    }
+}
+
+function goToSlide(slideIndex) {
+    if (!slides.length || !indicators.length) return;
+
+    slides.forEach((slide) => slide.classList.remove('active'));
+    indicators.forEach((indicator) => indicator.classList.remove('active'));
+
+    if (slides[slideIndex]) slides[slideIndex].classList.add('active');
+    if (indicators[slideIndex]) indicators[slideIndex].classList.add('active');
+
+    currentSlide = slideIndex;
+    updateHeroContentVisibility(slideIndex);
+}
+
+function nextSlide() {
+    if (!slides.length) return;
+    currentSlide = (currentSlide + 1) % slides.length;
+    goToSlide(currentSlide);
+}
+
+function initHeroCarousel() {
+    slides = Array.from(document.querySelectorAll('.carousel-slide'));
+    indicators = Array.from(document.querySelectorAll('.indicator'));
+    heroContent = document.querySelector('.hero-content');
+
+    if (!slides.length || !indicators.length) return;
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            if (heroInterval) {
+                clearInterval(heroInterval);
+                heroInterval = setInterval(nextSlide, 5000);
+            }
+        });
+    });
+
+    goToSlide(0);
+    heroInterval = setInterval(nextSlide, 5000);
+}
+
+// expose for inline onclick in HTML
+window.goToSlide = goToSlide;
+
+// ==================== TESTIMONIALS ====================
+function initTestimonialsCarousel() {
+    const testimonialSlides = document.querySelectorAll('.testimonials-slide');
+    const testimonialIndicators = document.querySelectorAll('.testimonials-indicator');
+
+    if (!testimonialSlides.length || !testimonialIndicators.length) return;
+
+    let currentTestimonial = 0;
+
+    const showTestimonial = (index) => {
+        testimonialSlides.forEach((slide) => slide.classList.remove('active'));
+        testimonialIndicators.forEach((indicator) => indicator.classList.remove('active'));
+
+        testimonialSlides[index].classList.add('active');
+        testimonialIndicators[index].classList.add('active');
+    };
+
+    const nextTestimonial = () => {
+        currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+        showTestimonial(currentTestimonial);
+    };
+
+    let testimonialInterval = setInterval(nextTestimonial, 6000);
+
+    testimonialIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentTestimonial = index;
+            showTestimonial(currentTestimonial);
+            clearInterval(testimonialInterval);
+            testimonialInterval = setInterval(nextTestimonial, 6000);
+        });
+    });
+}
+
+// ==================== EMPRESAS CAROUSEL ====================
+function initCompaniesCarousel() {
+    const gridWrapper = document.querySelector('.companies-grid-wrapper');
+    const cards = document.querySelectorAll('.company-card');
+    const leftBtn = document.querySelector('.companies-arrow.left');
+    const rightBtn = document.querySelector('.companies-arrow.right');
+
+    if (!gridWrapper || !leftBtn || !rightBtn || !cards.length) return;
+
+    let currentIndex = 0;
+
+    function scrollToCard(index) {
+        if (!cards[index]) return;
+
+        const wrapperWidth = gridWrapper.offsetWidth;
+        const cardWidth = cards[index].offsetWidth;
+        const cardOffset = cards[index].offsetLeft;
+        const scrollLeft = cardOffset - (wrapperWidth - cardWidth) / 2;
+
+        gridWrapper.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+        });
+
+        currentIndex = index;
+        updateArrows();
+    }
+
+    function updateArrows() {
+        leftBtn.disabled = currentIndex === 0;
+        rightBtn.disabled = currentIndex === cards.length - 1;
+    }
+
+    leftBtn.addEventListener('click', () => {
+        if (currentIndex > 0) scrollToCard(currentIndex - 1);
+    });
+
+    rightBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 1) scrollToCard(currentIndex + 1);
+    });
+
+    window.addEventListener('resize', () => scrollToCard(currentIndex));
+    scrollToCard(0);
+}
+
+// ==================== FACEBOOK VIDEO AUTOPLAY ====================
+function initFacebookVideoAutoplay() {
+    const fbVideoSection = document.querySelector('.about-video-absolute-fullwidth');
+    const fbIframe = fbVideoSection ? fbVideoSection.querySelector('iframe') : null;
+    if (!fbVideoSection || !fbIframe) return;
+
+    let hasPlayed = false;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !hasPlayed) {
+                let src = fbIframe.getAttribute('src') || '';
+                if (!src.includes('autoplay=1')) {
+                    src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                    fbIframe.setAttribute('src', src);
+                }
+                hasPlayed = true;
+                obs.disconnect();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(fbVideoSection);
+}
+
+// ==================== SMOOTH ANCHORS ====================
+function initSmoothAnchors() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const target = document.querySelector(href);
+            if (!target) return;
+
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+}
+
+// ==================== FORM VALIDATION ====================
+function initContactFormValidation() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre')?.value.trim() || '';
+        const email = document.getElementById('email')?.value.trim() || '';
+        const mensaje = document.getElementById('mensaje')?.value.trim() || '';
+        const privacyConsent = document.getElementById('privacy-consent');
+        const selectedLang = localStorage.getItem('selectedLanguage') || 'es';
+        const t = translations[selectedLang] || translations.es;
+
+        if (!nombre || !email || !mensaje) {
+            alert('Por favor, completa todos los campos obligatorios.');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, introduce un email válido.');
+            return;
+        }
+
+        if (!privacyConsent || !privacyConsent.checked) {
+            alert(t.contact_consent_error || 'Debes aceptar la Política de Privacidad y el Aviso Legal para enviar el formulario.');
+            return;
+        }
+
+        alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+        contactForm.reset();
+    });
+}
+
+// ==================== SCROLL ANIMATIONS ====================
+function initScrollReveal() {
+    const animateElements = document.querySelectorAll('.service-card, .company-card, .feature-card, .legal-card, .scroll-reveal');
+    if (!animateElements.length) return;
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    animateElements.forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+    });
+}
+
+// ==================== GLOBAL EVENTS ====================
+document.addEventListener('click', (event) => {
+    const languageSelector = document.querySelector('.language-selector');
+    if (languageSelector && !languageSelector.contains(event.target)) {
+        languageSelector.classList.remove('show');
+    }
+});
+
+// expose for inline HTML handlers
+window.toggleDropdown = toggleDropdown;
+window.setLang = setLang;
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+    initCookieConsent();
+    initMobileMenu();
+    initNavbarScroll();
+    initHeroCarousel();
+    initTestimonialsCarousel();
+    initCompaniesCarousel();
+    initFacebookVideoAutoplay();
+    initSmoothAnchors();
+    initContactFormValidation();
+    initScrollReveal();
+    setActiveNavLink();
+
     const savedLang = localStorage.getItem('selectedLanguage') || 'es';
-    
-    // Update flag and text in language selector
-    const flagImages = {
-        'es': 'images/flag_es.png',
-        'ca': 'images/flag_ca.png',
-        'fr': 'images/flag_fr.png',
-        'en': 'images/flag_en.png'
-    };
-    
-    const langTexts = {
-        'es': 'ES',
-        'ca': 'CAT',
-        'fr': 'FR',
-        'en': 'EN'
-    };
-    
-    const currentFlag = document.getElementById('current-flag');
-    const currentLangText = document.getElementById('current-lang-text');
-    
-    if (currentFlag && currentLangText) {
-        currentFlag.src = flagImages[savedLang];
-        currentLangText.textContent = langTexts[savedLang];
-    }
-    
-    const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) {
-        languageSelect.value = savedLang;
-    }
-    
-    // Apply translations if not Spanish (default)
+    updateLanguageIndicator(savedLang);
+
     if (savedLang !== 'es') {
         changeLanguage(savedLang);
     }
-
-    initTestimonialsCarousel();
 });
-
-// Notification function
-function showNotification(message) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        background-color: var(--gold);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 5px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 10000;
-        font-weight: 600;
-        animation: slideIn 0.3s ease;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-
-// Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(400px); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
