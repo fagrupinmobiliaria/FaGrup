@@ -16,10 +16,10 @@
                 <img src="images/FA GRUP LOGO.svg" alt="FA GRUP Logo">
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="servicios.html">Servicios</a></li>
-                <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                <li><a href="contacto.html" class="active">Contacto</a></li>
+                <li><a href="index.html" data-translate="nav_inicio">Inicio</a></li>
+                <li><a href="servicios.html" data-translate="nav_servicios">Servicios</a></li>
+                <li><a href="nosotros.html" data-translate="nav_nosotros">Sobre Nosotros</a></li>
+                <li><a href="contacto.html" class="active" data-translate="nav_contacto">Contacto</a></li>
                 <li class="language-selector">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" onclick="toggleDropdown(event)" aria-expanded="false">
                         <img src="images/flag_es.png" id="current-flag" alt="Español">
@@ -82,8 +82,7 @@
                         </div>
                         <div class="info-content">
                             <h3 data-translate="contact_email_title">Email</h3>
-                            <p><a href="mailto:info@fagrup.com">info@fagrup.com</a></p>
-                            <p style="margin-top: 0.5rem;"><a href="mailto:legal@fagrup.com">legal@fagrup.com</a> <span data-translate="contact_email_legal">(Consultas legales)</span></p>
+                            <p><a href="mailto:fagrupinmobiliaria@gmail.com">fagrupinmobiliaria@gmail.com</a></p>
                         </div>
                     </div>
 
@@ -152,6 +151,19 @@
                             <textarea id="mensaje" name="mensaje" required></textarea>
                         </div>
 
+                        <div class="form-group form-consent">
+                            <p class="consent-note" data-translate="contact_privacy_info">Responsable: FA GRUP. Finalidad: atender su consulta. Base jurídica: consentimiento y medidas precontractuales. Derechos: acceso, rectificación, supresión y demás derechos RGPD en fagrupinmobiliaria@gmail.com.</p>
+                            <label class="consent-label" for="privacy-consent">
+                                <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
+                                <span>
+                                    <span data-translate="contact_consent_prefix">He leído y acepto la </span>
+                                    <a href="privacidad.html" target="_blank" rel="noopener"><span data-translate="footer_privacy">Política de Privacidad</span></a>
+                                    <span data-translate="contact_consent_and"> y el </span>
+                                    <a href="aviso-legal.html" target="_blank" rel="noopener"><span data-translate="footer_legal">Aviso Legal</span></a>.
+                                </span>
+                            </label>
+                        </div>
+
                         <button type="submit" class="btn btn-primary form-submit" data-translate="contact_form_submit">Enviar consulta</button>
                     </form>
                 </div>
@@ -202,12 +214,25 @@
             <div class="footer-bottom">
                 <p>&copy; 2026 FA GRUP. Todos los derechos reservados.</p>
                 <div class="footer-links">
-                    <a href="#">Aviso Legal</a>
+                    <a href="aviso-legal.html">Aviso Legal</a>
                     <a href="privacidad.html">Política de Privacidad</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Cookie Consent Modal -->
+    <div class="cookie-modal" id="cookie-consent-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-desc">
+        <div class="cookie-modal-content">
+            <h2 id="cookie-consent-title" data-translate="cookie_title">Política de cookies</h2>
+            <p id="cookie-consent-desc" data-translate="cookie_message">Usamos cookies para mejorar tu experiencia y analizar el uso del sitio. Puedes aceptar o ajustar la configuración.</p>
+            <div class="cookie-modal-actions">
+                <button type="button" class="btn btn-primary" id="cookie-accept" data-translate="cookie_accept">Aceptar</button>
+                <button type="button" class="btn btn-outline" id="cookie-reject" data-translate="cookie_reject">Rechazar</button>
+                <a href="privacidad.html#cookies" class="btn btn-outline" id="cookie-config" data-translate="cookie_config">Ver politica de privacidad</a>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>

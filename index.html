@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FA GRUP - Soluciones Integrales para Empresas y Particulares</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Police Montserrat pour sous-titres et texte -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -15,10 +18,10 @@
                 <img src="images/FA GRUP LOGO.svg" alt="FA GRUP Logo">
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="active">Inicio</a></li>
-                <li><a href="servicios.html">Servicios</a></li>
-                <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="index.html" class="active" data-translate="nav_inicio">Inicio</a></li>
+                <li><a href="servicios.html" data-translate="nav_servicios">Servicios</a></li>
+                <li><a href="nosotros.html" data-translate="nav_nosotros">Sobre Nosotros</a></li>
+                <li><a href="contacto.html" data-translate="nav_contacto">Contacto</a></li>
                 <li class="language-selector">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" onclick="toggleDropdown(event)" aria-expanded="false">
                         <img src="images/flag_es.png" id="current-flag" alt="Español">
@@ -51,15 +54,19 @@
     <!-- Hero Section with Carousel -->
     <section class="hero">
         <div class="hero-carousel">
-            <div class="carousel-slide slide-1 active"></div>
+            <div class="carousel-slide slide-1 active" style="background-image: url('images/fa_grup_hero.jpg');"></div>
             <div class="carousel-slide slide-2"></div>
+            <div class="carousel-slide slide-3" style="background-image: url('images/hero3_bis.jpg');"></div>
+            <div class="carousel-slide slide-4" style="background-image: url('images/hero4bis.jpg');"></div>
         </div>
         <div class="carousel-indicators">
             <span class="indicator active" onclick="goToSlide(0)"></span>
             <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
         </div>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
+        <div class="hero-content hero-content-slide-2">
+            <!-- Le contenu sera affiché uniquement sur la deuxième slide via CSS -->
             <h1 data-translate="hero_title">FA GRUP - Inmobiliaria en Barcelona</h1>
             <p class="slogan" data-translate="hero_slogan">Siempre Contigo</p>
         </div>
@@ -72,19 +79,20 @@
         </div>
     </section>
 
-    <!-- What is FA GRUP Section -->
-    <section class="intro-section">
-        <div class="container">
-            <div class="intro-content">
-                <h2 data-translate="intro_title">¿Qué es FA GRUP?</h2>
-                <div style="display: grid; grid-template-columns: 350px 1fr; gap: 3rem; align-items: center; margin-top: 2rem;">
-                    <!-- Image -->
-                    <div>
-                        <img src="images/senora_flor.jpg" alt="FA GRUP" style="width: 100%; border-radius: 10px; box-shadow: var(--shadow);">
+    <!-- FA GRUP & Sobre Nosotros Fusionnée -->
+    <section class="about-fusion-section">
+        <div class="about-fusion-bg">
+            <div class="container">
+                <h2 class="section-title" data-translate="about_title">Sobre Nosotros</h2>
+                <div class="fusion-grid" style="display: flex; align-items: center; gap: 2.5rem;">
+                    <div class="fusion-video" style="flex: 1 1 400px; min-width: 320px; max-width: 500px;">
+                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&amp;href=https%3A%2F%2Fwww.facebook.com%2Freel%2F333613268855417&amp;show_text=false&amp;width=400&amp;t=0" width="400" height="476" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
-                    <!-- Text -->
-                    <div>
-                        <p data-translate="intro_text">FA GRUP es una inmobiliaria de Barcelona fundada en 2019, especializada en ofrecer un servicio integral en el sector inmobiliario. Acompañamos al cliente durante todas las etapas de compra, venta o alquiler con profesionalidad y cercanía. Nos distinguimos por nuestra atención personalizada, conocimiento del mercado local y compromiso con la transparencia.</p>
+                    <div class="fusion-text gold-all" style="flex: 2 1 400px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                        <p class="gold" style="margin-bottom: 1.2rem;">FA GRUP es una inmobiliaria de Barcelona fundada en 2019, especializada en ofrecer un servicio integral en el sector inmobiliario. Acompañamos al cliente durante todas las etapas de compra, venta o alquiler con profesionalidad y cercanía. Nos distinguimos por nuestra atención personalizada, conocimiento del mercado local y compromiso con la transparencia.</p>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <a href="nosotros.html" class="btn btn-gold" data-translate="btn_read_more">Leer más</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,8 +110,10 @@
                         <i class="fas fa-home"></i>
                     </div>
                     <h3 data-translate="service_inmobiliaria">Inmobiliaria</h3>
-                    <p data-translate="service_inmobiliaria_desc">Venta de pisos con asesoramiento profesional. Acompañamos a nuestros clientes en cada paso de la compra de su vivienda.</p>
-                    <a href="servicios.html#inmobiliaria" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    <div class="service-details">
+                        <p data-translate="service_inmobiliaria_desc">Venta de pisos con asesoramiento profesional. Acompañamos a nuestros clientes en cada paso de la compra de su vivienda.</p>
+                        <a href="servicios.html#inmobiliaria" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    </div>
                 </div>
 
                 <!-- Seguros -->
@@ -111,9 +121,11 @@
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 data-translate="service_seguros">Seguros</h3>
-                    <p data-translate="service_seguros_desc">Protección y tranquilidad para tu hogar, vida y negocio. Asesoramiento personalizado y gestión integral de pólizas.</p>
-                    <a href="servicios.html#seguros" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    <h3 data-translate="service_seguros">Seguros <span class="service-badge">en colaboración con FACARD</span></h3>
+                    <div class="service-details">
+                        <p data-translate="service_seguros_desc">Protección y tranquilidad para tu hogar, vida y negocio. Asesoramiento personalizado y gestión integral de pólizas.</p>
+                        <a href="servicios.html#seguros" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    </div>
                 </div>
 
                 <!-- Agencia de Viajes -->
@@ -122,48 +134,36 @@
                         <i class="fas fa-plane"></i>
                     </div>
                     <h3 data-translate="service_viajes">Agencia de Viajes</h3>
-                    <p data-translate="service_viajes_desc">Experiencias únicas, planificadas para ti. Organizamos tu viaje completo con atención profesional.</p>
-                    <a href="servicios.html#viajes" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    <div class="service-details">
+                        <p data-translate="service_viajes_desc">Experiencias únicas, planificadas para ti. Organizamos tu viaje completo con atención profesional.</p>
+                        <a href="servicios.html#viajes" class="btn btn-secondary" data-translate="btn_more_info">Más información</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us Brief -->
-    <section class="about-brief">
-        <div class="container">
-            <div class="about-content">
-                <h2 data-translate="about_title">Sobre Nosotros</h2>
-                
-                <div style="display: grid; grid-template-columns: 450px 1fr; gap: 3rem; align-items: center; margin: 2rem 0;">
-                    <!-- Video Section -->
-                    <div>
-                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F333613268855417&show_text=false&width=400&t=0" width="400" height="476" style="border:none;overflow:hidden;display:block;border-radius:10px;box-shadow:var(--shadow);width:100%;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                    </div>
-                    
-                    <!-- Text -->
-                    <div>
-                        <p data-translate="about_text" style="margin-bottom: 2rem;">Somos una asesoría empresarial especializada en ofrecer soluciones integrales en las áreas fiscal, contable, laboral y estratégica. Nuestro objetivo es acompañar a empresas, autónomos y emprendedores en la gestión eficiente de su actividad, aportando claridad y un enfoque orientado a resultados.</p>
-                        <a href="nosotros.html" class="btn btn-outline" data-translate="btn_read_more">Leer más</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Section fusionnée ci-dessus -->
 
     <!-- Associated Companies -->
     <section class="companies-section">
         <div class="container">
             <h2 class="section-title" data-translate="companies_title">Empresas Asociadas</h2>
-            <div class="companies-grid">
+                <p style="max-width:700px;margin:16px auto 32px auto;text-align:center;">Con el objetivo de ofrecer un servicio global, ampliamos nuestros servicios como asesoría empresarial, ofreciendo soluciones integrales en las áreas fiscal, contable, laboral y estratégica. Nuestro objetivo es acompañar a empresas, autónomos y emprendedores en la gestión eficiente de su actividad, aportando claridad y un enfoque orientado a resultados.</p>
+            <div class="companies-carousel-controls">
+                <button class="companies-arrow left" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+                <div class="companies-grid-wrapper">
+                    <div class="companies-grid">
                 <!-- FA Asesoría Global -->
                 <div class="company-card">
                     <div class="company-logo">
                         <img src="images/LOGO_ASESORIA_GLOBAL.svg" alt="FA Asesoría Global Logo" style="max-width: 120px; height: auto;">
                     </div>
                     <h3 data-translate="company_fa_asesoria">FA Asesoría Global</h3>
-                    <p data-translate="company_fa_desc">Servicios de abogados, asesoría legal y jurídica. Especialistas en derecho penal, laboral, familiar, civil y administrativo.</p>
-                    <a href="legal.html" class="btn btn-secondary" data-translate="btn_visit_web">Visitar web</a>
+                    <div class="company-details">
+                        <p data-translate="company_fa_desc">Servicios de abogados, asesoría legal y jurídica. Especialistas en derecho penal, laboral, familiar, civil y administrativo.</p>
+                        <a href="https://faasesoriaglobal.com/" class="btn btn-secondary" data-translate="btn_visit_web" target="_blank" rel="noopener noreferrer">Visitar web</a>
+                    </div>
                 </div>
 
                 <!-- CICTAEC -->
@@ -172,9 +172,61 @@
                         <img src="images/logo_cictaec.svg" alt="CICTAEC Logo" style="max-width: 120px; height: auto;">
                     </div>
                     <h3 data-translate="company_cictaec">CICTAEC</h3>
-                    <p data-translate="company_cictaec_desc">Empresas, cultura, turismo y negocios. Soluciones integrales para el desarrollo empresarial y cultural.</p>
-                    <a href="empresas.html#cictaec" class="btn btn-secondary" data-translate="btn_visit_web">Visitar web</a>
+                    <div class="company-details">
+                        <p data-translate="company_cictaec_desc">Empresas, cultura, turismo y negocios. Soluciones integrales para el desarrollo empresarial y cultural.</p>
+                        <a href="https://www.cictaec.es" class="btn btn-secondary" data-translate="btn_visit_web" target="_blank" rel="noopener noreferrer">Visitar web</a>
+                    </div>
                 </div>
+
+                <!-- FACARD -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <img src="images/facard.jpg" alt="FACARD Logo" style="max-width: 120px; height: auto;">
+                    </div>
+                    <h3>FACARD</h3>
+                    <div class="company-details">
+                        <p>Soluciones y servicios asociados a FACARD.</p>
+                        <p style="margin-top:1em;">Con el objetivo de ofrecer un servicio global, ampliamos nuestros servicios como asesoría empresarial, ofreciendo soluciones integrales en las áreas fiscal, contable, laboral y estratégica. Nuestro objetivo es acompañar a empresas, autónomos y emprendedores en la gestión eficiente de su actividad, aportando claridad y un enfoque orientado a resultados.</p>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                <button class="companies-arrow right" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="testimonials_title">¿Qué opinan de nosotros?</h2>
+            <div class="testimonials-carousel">
+                <div class="testimonials-slide active">
+                    <div class="testimonials-card">
+                        <p data-translate="testimonial_1">"Atencion excelente y trato muy cercano. Nos ayudaron en todo el proceso de compra."</p>
+                        <span class="testimonials-author" data-translate="testimonial_1_author">- Laura M.</span>
+                    </div>
+                </div>
+                <div class="testimonials-slide">
+                    <div class="testimonials-card">
+                        <p data-translate="testimonial_2">"Profesionales y transparentes. Recomiendo FA GRUP al 100%."</p>
+                        <span class="testimonials-author" data-translate="testimonial_2_author">- Carlos R.</span>
+                    </div>
+                </div>
+                <div class="testimonials-slide">
+                    <div class="testimonials-card">
+                        <p data-translate="testimonial_3">"Gestion rapida y asesoramiento claro. Todo fue sencillo."</p>
+                        <span class="testimonials-author" data-translate="testimonial_3_author">- Ana P.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-indicators">
+                <button class="testimonials-indicator active" type="button" aria-label="Resena 1"></button>
+                <button class="testimonials-indicator" type="button" aria-label="Resena 2"></button>
+                <button class="testimonials-indicator" type="button" aria-label="Resena 3"></button>
+            </div>
+            <div class="testimonials-cta">
+                <a href="#" class="btn btn-primary" data-translate="btn_more_reviews">Ver mas reseñas</a>
             </div>
         </div>
     </section>
@@ -182,7 +234,7 @@
     <!-- Quick Contact -->
     <section class="quick-contact">
         <div class="container">
-            <h2 data-translate="contact_hero_title">Especialistas que entienden el arte de Ventas</h2>
+            <h2 data-translate="contact_hero_title">No pongas limites a tu exigencia, porque resolver es nuestra obligación</h2>
             <p data-translate="contact_question">¿Buscas tu hogar ideal en Barcelona? Contáctanos y te acompañaremos en todo el proceso.</p>
             <div class="contact-info">
                 <div class="contact-item">
@@ -230,9 +282,15 @@
                 <div class="footer-section">
                     <h4 data-translate="social_title">Redes Sociales</h4>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/fagrupinmobiliaria1/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                                                <a href="https://www.instagram.com/fagrupinmobiliaria" target="_blank" aria-label="Instagram" style="margin-right: 16px;"><i class="fab fa-instagram"></i></a>
+                                                <a href="#" target="_blank" aria-label="LinkedIn" style="margin-right: 16px;"><i class="fab fa-linkedin"></i></a>
+                                                <a href="https://www.facebook.com/profile.php?id=100077084994121" target="_blank" aria-label="Facebook" style="margin-right: 16px;"><i class="fab fa-facebook"></i></a>
+                                                <a href="https://www.tiktok.com/@fagrupinmobiliaria" target="_blank" aria-label="TikTok">
+                                                    <svg class="social-tiktok-icon" width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
+                                                        <path d="M32 8v18.5a8.5 8.5 0 1 1-8.5-8.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <path d="M23.5 8H32c0 5.5 4.5 10 10 10v6c-4.2 0-8.1-1.3-11.3-3.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </a>
                     </div>
                 </div>
             </div>
@@ -247,9 +305,22 @@
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/34635871358" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <a href="https://api.whatsapp.com/send/?phone=34635871358&text&type=phone_number&app_absent=0" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Cookie Consent Modal -->
+    <div class="cookie-modal" id="cookie-consent-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-desc">
+        <div class="cookie-modal-content">
+            <h2 id="cookie-consent-title" data-translate="cookie_title">Política de cookies</h2>
+            <p id="cookie-consent-desc" data-translate="cookie_message">Usamos cookies para mejorar tu experiencia y analizar el uso del sitio. Puedes aceptar o ajustar la configuración.</p>
+            <div class="cookie-modal-actions">
+                <button type="button" class="btn btn-primary" id="cookie-accept" data-translate="cookie_accept">Aceptar</button>
+                <button type="button" class="btn btn-outline" id="cookie-reject" data-translate="cookie_reject">Rechazar</button>
+                <a href="privacidad.html#cookies" class="btn btn-outline" id="cookie-config" data-translate="cookie_config">Ver politica de privacidad</a>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>

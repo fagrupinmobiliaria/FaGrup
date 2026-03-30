@@ -16,10 +16,10 @@
                 <img src="images/FA GRUP LOGO.svg" alt="FA GRUP Logo">
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="servicios.html">Servicios</a></li>
-                <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="index.html" data-translate="nav_inicio">Inicio</a></li>
+                <li><a href="servicios.html" data-translate="nav_servicios">Servicios</a></li>
+                <li><a href="nosotros.html" data-translate="nav_nosotros">Sobre Nosotros</a></li>
+                <li><a href="contacto.html" data-translate="nav_contacto">Contacto</a></li>
                 <li class="language-selector">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" onclick="toggleDropdown(event)" aria-expanded="false">
                         <img src="images/flag_es.png" id="current-flag" alt="Español">
@@ -148,9 +148,17 @@
                 <p>FA GRUP ha implementado medidas técnicas y organizativas apropiadas para garantizar la seguridad de sus datos personales y protegerlos contra accesos no autorizados, pérdida, destrucción o alteración.</p>
             </div>
 
-            <div class="privacy-section">
+            <div class="privacy-section" id="cookies">
                 <h2 data-translate="privacy_section9_title">9. Cookies</h2>
-                <p>Nuestro sitio web utiliza cookies para mejorar la experiencia del usuario. Para más información, consulte nuestra Política de Cookies.</p>
+                <p>Este sitio web utiliza cookies técnicas necesarias para su funcionamiento y, en su caso, cookies analíticas o de personalización únicamente si usted las acepta.</p>
+                <p>Al acceder al sitio, puede aceptar o rechazar las cookies no esenciales desde el banner de consentimiento. También puede cambiar su elección eliminando las cookies de su navegador y volviendo a cargar la página.</p>
+                <p>Tipos de cookies que podemos utilizar:</p>
+                <ul>
+                    <li><strong>Técnicas (necesarias):</strong> Permiten funciones básicas del sitio web y no requieren consentimiento.</li>
+                    <li><strong>Analíticas:</strong> Nos ayudan a entender el uso del sitio de forma agregada para mejorar nuestros servicios.</li>
+                    <li><strong>Preferencias:</strong> Guardan determinadas opciones del usuario para mejorar la experiencia.</li>
+                </ul>
+                <p>Puede configurar su navegador para bloquear o eliminar cookies. Tenga en cuenta que, en ese caso, algunas funcionalidades del sitio pueden no estar disponibles correctamente.</p>
             </div>
 
             <div class="privacy-section">
@@ -222,6 +230,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cookie Consent Modal -->
+    <div class="cookie-modal" id="cookie-consent-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-desc">
+        <div class="cookie-modal-content">
+            <h2 id="cookie-consent-title" data-translate="cookie_title">Política de cookies</h2>
+            <p id="cookie-consent-desc" data-translate="cookie_message">Usamos cookies para mejorar tu experiencia y analizar el uso del sitio. Puedes aceptar o ajustar la configuración.</p>
+            <div class="cookie-modal-actions">
+                <button type="button" class="btn btn-primary" id="cookie-accept" data-translate="cookie_accept">Aceptar</button>
+                <button type="button" class="btn btn-outline" id="cookie-reject" data-translate="cookie_reject">Rechazar</button>
+                <a href="privacidad.html#cookies" class="btn btn-outline" id="cookie-config" data-translate="cookie_config">Ver politica de privacidad</a>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>

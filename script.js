@@ -1,3 +1,88 @@
+// Carousel scroll for Empresas Asociadas
+document.addEventListener('DOMContentLoaded', function() {
+    const gridWrapper = document.querySelector('.companies-grid-wrapper');
+    const grid = document.querySelector('.companies-grid');
+    const cards = document.querySelectorAll('.company-card');
+    const leftBtn = document.querySelector('.companies-arrow.left');
+    const rightBtn = document.querySelector('.companies-arrow.right');
+    let currentIndex = 0;
+
+    function getCardWidth() {
+        if (!cards[0]) return 0;
+        const style = window.getComputedStyle(cards[0]);
+        const marginRight = parseInt(style.marginRight) || 0;
+        const marginLeft = parseInt(style.marginLeft) || 0;
+        return cards[0].offsetWidth + marginLeft + marginRight;
+    }
+
+    function scrollToCard(index) {
+        if (!cards[index]) return;
+        const wrapperWidth = gridWrapper.offsetWidth;
+        const cardWidth = cards[index].offsetWidth;
+        const cardOffset = cards[index].offsetLeft;
+        // Center the card in the wrapper
+        const scrollLeft = cardOffset - (wrapperWidth - cardWidth) / 2;
+        gridWrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        currentIndex = index;
+        updateArrows();
+    }
+
+    function updateArrows() {
+        leftBtn.disabled = currentIndex === 0;
+        rightBtn.disabled = currentIndex === cards.length - 1;
+    }
+
+    function handleArrowClick(direction) {
+        if (direction === 'left' && currentIndex > 0) {
+            scrollToCard(currentIndex - 1);
+        } else if (direction === 'right' && currentIndex < cards.length - 1) {
+            scrollToCard(currentIndex + 1);
+        }
+    }
+
+    if (gridWrapper && grid && leftBtn && rightBtn && cards.length > 0) {
+        leftBtn.addEventListener('click', () => handleArrowClick('left'));
+        rightBtn.addEventListener('click', () => handleArrowClick('right'));
+
+        // On resize, re-center the current card
+        window.addEventListener('resize', () => {
+            scrollToCard(currentIndex);
+        });
+
+        // On load, center the first card
+        scrollToCard(0);
+
+        // On mobile, prevent manual scroll
+        gridWrapper.addEventListener('touchmove', function(e) {
+            if (window.innerWidth <= 900) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+});
+// --- Auto-play Facebook video on scroll into view ---
+document.addEventListener('DOMContentLoaded', function() {
+    const fbVideoSection = document.querySelector('.about-video-absolute-fullwidth');
+    const fbIframe = fbVideoSection ? fbVideoSection.querySelector('iframe') : null;
+    let hasPlayed = false;
+    if (fbVideoSection && fbIframe) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasPlayed) {
+                    // Add autoplay=1 to the iframe src if not present
+                    let src = fbIframe.getAttribute('src');
+                    if (!src.includes('autoplay=1')) {
+                        src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                        fbIframe.setAttribute('src', src);
+                    }
+                    hasPlayed = true;
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        observer.observe(fbVideoSection);
+    }
+});
 // Mobile Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -16,6 +101,23 @@ if (hamburger && navMenu) {
         });
     });
 }
+
+// Navbar Scroll Effect
+const navbar = document.querySelector('.navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    // Add scrolled class for styling
+    if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
 
 // Language Selector Dropdown Toggle
 function toggleDropdown(event) {
@@ -73,6 +175,7 @@ function setLang(lang) {
 let currentSlide = 0;
 const slides = document.querySelectorAll('.carousel-slide');
 const indicators = document.querySelectorAll('.indicator');
+const heroContent = document.querySelector('.hero-content');
 
 function goToSlide(slideIndex) {
     // Remove active class from all slides and indicators
@@ -82,6 +185,17 @@ function goToSlide(slideIndex) {
     // Add active class to selected slide and indicator
     slides[slideIndex].classList.add('active');
     indicators[slideIndex].classList.add('active');
+    
+    // Hide title on slide 2, 3, 4; show only on slide 1
+    if (heroContent) {
+        if (slideIndex === 1 || slideIndex === 2 || slideIndex === 3) {
+            heroContent.style.opacity = '0';
+            heroContent.style.visibility = 'hidden';
+        } else {
+            heroContent.style.opacity = '1';
+            heroContent.style.visibility = 'visible';
+        }
+    }
     
     currentSlide = slideIndex;
 }
@@ -94,6 +208,40 @@ function nextSlide() {
 // Auto-advance carousel every 5 seconds
 if (slides.length > 0) {
     setInterval(nextSlide, 5000);
+}
+
+// Testimonials Carousel
+function initTestimonialsCarousel() {
+    const testimonialSlides = document.querySelectorAll('.testimonials-slide');
+    const testimonialIndicators = document.querySelectorAll('.testimonials-indicator');
+    if (testimonialSlides.length === 0 || testimonialIndicators.length === 0) {
+        return;
+    }
+
+    let currentTestimonial = 0;
+
+    const showTestimonial = (index) => {
+        testimonialSlides.forEach(slide => slide.classList.remove('active'));
+        testimonialIndicators.forEach(indicator => indicator.classList.remove('active'));
+        testimonialSlides[index].classList.add('active');
+        testimonialIndicators[index].classList.add('active');
+    };
+
+    const nextTestimonial = () => {
+        currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+        showTestimonial(currentTestimonial);
+    };
+
+    let testimonialInterval = setInterval(nextTestimonial, 6000);
+
+    testimonialIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentTestimonial = index;
+            showTestimonial(currentTestimonial);
+            clearInterval(testimonialInterval);
+            testimonialInterval = setInterval(nextTestimonial, 6000);
+        });
+    });
 }
 
 // Smooth Scrolling for anchor links
@@ -130,6 +278,9 @@ if (contactForm) {
         const email = document.getElementById('email').value.trim();
         const telefono = document.getElementById('telefono').value.trim();
         const mensaje = document.getElementById('mensaje').value.trim();
+        const privacyConsent = document.getElementById('privacy-consent');
+        const selectedLang = localStorage.getItem('selectedLanguage') || 'es';
+        const t = translations[selectedLang] || translations.es;
         
         // Simple validation
         if (!nombre || !email || !mensaje) {
@@ -143,13 +294,17 @@ if (contactForm) {
             alert('Por favor, introduce un email válido.');
             return;
         }
+
+        if (!privacyConsent || !privacyConsent.checked) {
+            alert(t.contact_consent_error || 'Debes aceptar la Política de Privacidad y el Aviso Legal para enviar el formulario.');
+            return;
+        }
         
         // If validation passes
         alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
         contactForm.reset();
     });
 }
-
 // Animation on scroll
 const observerOptions = {
     threshold: 0.1,
@@ -167,12 +322,12 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements with animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.service-card, .company-card, .feature-card, .legal-card');
+    const animateElements = document.querySelectorAll('.service-card, .company-card, .feature-card, .legal-card, .scroll-reveal');
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(el);
     });
 });
@@ -245,8 +400,29 @@ const translations = {
         contact_form_service: "Servicio de interés",
         contact_form_select: "Selecciona un servicio",
         contact_form_message: "Mensaje",
+        contact_privacy_info: "Responsable: FA GRUP. Finalidad: atender su consulta. Base jurídica: consentimiento y medidas precontractuales. Derechos: acceso, rectificación, supresión y demás derechos RGPD en fagrupinmobiliaria@gmail.com.",
+        contact_consent_prefix: "He leído y acepto la ",
+        contact_consent_and: " y el ",
+        contact_consent_error: "Debes aceptar la Política de Privacidad y el Aviso Legal para enviar el formulario.",
         contact_form_submit: "Enviar consulta",
         contact_map_title: "Nuestra Ubicación",
+
+        // Cookie Modal
+        cookie_title: "Política de cookies",
+        cookie_message: "Usamos cookies técnicas necesarias y, solo con tu consentimiento, cookies de análisis o personalización.",
+        cookie_accept: "Aceptar",
+        cookie_reject: "Rechazar",
+        cookie_config: "Ver politica de privacidad",
+
+        // Testimonials
+        testimonials_title: "¿Qué opinan de nosotros?",
+        testimonial_1: "\"Atencion excelente y trato muy cercano. Nos ayudaron en todo el proceso de compra.\"",
+        testimonial_1_author: "- Laura M.",
+        testimonial_2: "\"Profesionales y transparentes. Recomiendo FA GRUP al 100%.\"",
+        testimonial_2_author: "- Carlos R.",
+        testimonial_3: "\"Gestion rapida y asesoramiento claro. Todo fue sencillo.\"",
+        testimonial_3_author: "- Ana P.",
+        btn_more_reviews: "Ver mas reseñas",
         
         // Social
         social_title: "Síguenos en Redes Sociales",
@@ -284,7 +460,44 @@ const translations = {
         privacy_section9_title: "9. Cookies",
         privacy_section10_title: "10. Modificaciones",
         privacy_section11_title: "11. Reclamaciones",
-        privacy_section12_title: "12. Contacto"
+        privacy_section12_title: "12. Contacto",
+
+        // Legal Notice Page
+        aviso_page_title: "Aviso Legal - FA GRUP",
+        aviso_title: "Aviso Legal",
+        aviso_subtitle: "Información legal y condiciones de uso del sitio web de FA GRUP",
+        aviso_last_update: "Última actualización: 16 de marzo de 2026",
+        aviso_section1_title: "1. Datos identificativos del titular del sitio web",
+        aviso_section1_p1: "En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa que el titular del presente sitio web es:",
+        aviso_holder_label: "Titular:",
+        aviso_address_label: "Domicilio:",
+        aviso_section2_title: "2. Objeto",
+        aviso_section2_p1: "El presente aviso legal regula el acceso, navegación y uso del sitio web de FA GRUP, así como las responsabilidades derivadas de la utilización de sus contenidos (textos, imágenes, diseños, código, documentación y cualquier otro material).",
+        aviso_section3_title: "3. Condiciones de uso",
+        aviso_section3_p1: "El acceso a este sitio web atribuye la condición de usuario e implica la aceptación plena y sin reservas de las disposiciones incluidas en este aviso legal.",
+        aviso_section3_li1: "El usuario se compromete a hacer un uso adecuado y lícito del sitio web y sus contenidos.",
+        aviso_section3_li2: "Queda prohibido realizar actividades ilícitas, fraudulentas o contrarias a la buena fe y al orden público.",
+        aviso_section3_li3: "FA GRUP se reserva el derecho de modificar, en cualquier momento y sin previo aviso, la presentación y configuración del sitio web, así como este aviso legal.",
+        aviso_section4_title: "4. Propiedad intelectual e industrial",
+        aviso_section4_p1: "Todos los contenidos del sitio web (incluyendo, sin carácter limitativo, textos, fotografías, gráficos, iconos, software, diseño gráfico y códigos fuente) son titularidad de FA GRUP o de terceros que han autorizado su uso.",
+        aviso_section4_p2: "Queda prohibida la reproducción, distribución, comunicación pública, transformación o cualquier otra forma de explotación, total o parcial, sin autorización expresa y por escrito del titular correspondiente.",
+        aviso_section5_title: "5. Responsabilidad",
+        aviso_section5_p1: "FA GRUP no garantiza la disponibilidad continua ni la ausencia de errores en el acceso al sitio web, si bien adoptará las medidas razonables para evitarlos, corregirlos o actualizarlos cuando proceda.",
+        aviso_section5_p2: "FA GRUP no se hace responsable de los daños o perjuicios derivados del uso del sitio web, ni de actuaciones realizadas sobre la base de la información contenida en él.",
+        aviso_section6_title: "6. Enlaces externos",
+        aviso_section6_p1: "Este sitio web puede contener enlaces a páginas de terceros. FA GRUP no asume responsabilidad sobre los contenidos, políticas o prácticas de dichos sitios externos.",
+        aviso_section7_title: "7. Protección de datos personales",
+        aviso_section7_p1: "El tratamiento de los datos personales se realiza conforme a lo establecido en la normativa vigente y en nuestra ",
+        aviso_privacy_link: "Política de Privacidad",
+        aviso_section8_title: "8. Política de cookies",
+        aviso_section8_p1: "Este sitio web utiliza cookies para mejorar la experiencia de navegación. Puede consultar más información en el apartado de cookies de nuestra ",
+        aviso_section9_title: "9. Legislación aplicable y jurisdicción",
+        aviso_section9_p1: "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia que pudiera surgir en relación con este sitio web, las partes se someten a los juzgados y tribunales de Barcelona, salvo que la normativa aplicable disponga otra cosa.",
+        aviso_section10_title: "10. Contacto",
+        aviso_section10_p1: "Para cualquier consulta relacionada con este aviso legal, puede contactar con FA GRUP en:",
+        aviso_email_label: "Email:",
+        aviso_phone_label: "Teléfono:",
+        aviso_contact_address_label: "Dirección:"
     },
     ca: {
         // Navigation
@@ -352,8 +565,29 @@ const translations = {
         contact_form_service: "Servei d'interès",
         contact_form_select: "Selecciona un servei",
         contact_form_message: "Missatge",
+        contact_privacy_info: "Responsable: FA GRUP. Finalitat: atendre la teva consulta. Base jurídica: consentiment i mesures precontractuals. Drets: accés, rectificació, supressió i resta de drets RGPD a fagrupinmobiliaria@gmail.com.",
+        contact_consent_prefix: "He llegit i accepto la ",
+        contact_consent_and: " i l' ",
+        contact_consent_error: "Has d'acceptar la Política de Privacitat i l'Avís Legal per enviar el formulari.",
         contact_form_submit: "Enviar consulta",
         contact_map_title: "La nostra Ubicació",
+
+        // Cookie Modal
+        cookie_title: "Política de cookies",
+        cookie_message: "Fem servir cookies tècniques necessàries i, només amb el teu consentiment, cookies d'anàlisi o personalització.",
+        cookie_accept: "Acceptar",
+        cookie_reject: "Rebutjar",
+        cookie_config: "Veure politica de privacitat",
+
+        // Testimonials
+        testimonials_title: "Que opinen de nosaltres?",
+        testimonial_1: "\"Atencio excel.lent i tracte molt proper. Ens van ajudar en tot el proces de compra.\"",
+        testimonial_1_author: "- Laura M.",
+        testimonial_2: "\"Professionals i transparents. Recomano FA GRUP al 100%.\"",
+        testimonial_2_author: "- Carlos R.",
+        testimonial_3: "\"Gestio rapida i assessorament clar. Tot va ser senzill.\"",
+        testimonial_3_author: "- Ana P.",
+        btn_more_reviews: "Veure mes ressenyes",
         
         // Social
         social_title: "Segueix-nos a les Xarxes Socials",
@@ -391,7 +625,44 @@ const translations = {
         privacy_section9_title: "9. Cookies",
         privacy_section10_title: "10. Modificacions",
         privacy_section11_title: "11. Reclamacions",
-        privacy_section12_title: "12. Contacte"
+        privacy_section12_title: "12. Contacte",
+
+        // Legal Notice Page
+        aviso_page_title: "Avís Legal - FA GRUP",
+        aviso_title: "Avís Legal",
+        aviso_subtitle: "Informació legal i condicions d'ús del lloc web de FA GRUP",
+        aviso_last_update: "Darrera actualització: 16 de març de 2026",
+        aviso_section1_title: "1. Dades identificatives del titular del lloc web",
+        aviso_section1_p1: "En compliment de la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI-CE), s'informa que el titular d'aquest lloc web és:",
+        aviso_holder_label: "Titular:",
+        aviso_address_label: "Domicili:",
+        aviso_section2_title: "2. Objecte",
+        aviso_section2_p1: "Aquest avís legal regula l'accés, la navegació i l'ús del lloc web de FA GRUP, així com les responsabilitats derivades de la utilització dels seus continguts (textos, imatges, dissenys, codi, documentació i qualsevol altre material).",
+        aviso_section3_title: "3. Condicions d'ús",
+        aviso_section3_p1: "L'accés a aquest lloc web atribueix la condició d'usuari i implica l'acceptació plena i sense reserves de les disposicions incloses en aquest avís legal.",
+        aviso_section3_li1: "L'usuari es compromet a fer un ús adequat i lícit del lloc web i dels seus continguts.",
+        aviso_section3_li2: "Queden prohibides les activitats il·lícites, fraudulentes o contràries a la bona fe i a l'ordre públic.",
+        aviso_section3_li3: "FA GRUP es reserva el dret de modificar, en qualsevol moment i sense avís previ, la presentació i configuració del lloc web, així com aquest avís legal.",
+        aviso_section4_title: "4. Propietat intel·lectual i industrial",
+        aviso_section4_p1: "Tots els continguts del lloc web (incloent-hi, sense caràcter limitatiu, textos, fotografies, gràfics, icones, programari, disseny gràfic i codis font) són titularitat de FA GRUP o de tercers que n'han autoritzat l'ús.",
+        aviso_section4_p2: "Queda prohibida la reproducció, distribució, comunicació pública, transformació o qualsevol altra forma d'explotació, total o parcial, sense autorització expressa i per escrit del titular corresponent.",
+        aviso_section5_title: "5. Responsabilitat",
+        aviso_section5_p1: "FA GRUP no garanteix la disponibilitat contínua ni l'absència d'errors en l'accés al lloc web, tot i que adoptarà les mesures raonables per evitar-los, corregir-los o actualitzar-los quan correspongui.",
+        aviso_section5_p2: "FA GRUP no es fa responsable dels danys o perjudicis derivats de l'ús del lloc web, ni d'actuacions realitzades sobre la base de la informació que hi consta.",
+        aviso_section6_title: "6. Enllaços externs",
+        aviso_section6_p1: "Aquest lloc web pot contenir enllaços a pàgines de tercers. FA GRUP no assumeix responsabilitat sobre els continguts, polítiques o pràctiques d'aquests llocs externs.",
+        aviso_section7_title: "7. Protecció de dades personals",
+        aviso_section7_p1: "El tractament de les dades personals es realitza d'acord amb la normativa vigent i amb la nostra ",
+        aviso_privacy_link: "Política de Privacitat",
+        aviso_section8_title: "8. Política de cookies",
+        aviso_section8_p1: "Aquest lloc web utilitza cookies per millorar l'experiència de navegació. Podeu consultar més informació a l'apartat de cookies de la nostra ",
+        aviso_section9_title: "9. Legislació aplicable i jurisdicció",
+        aviso_section9_p1: "Les presents condicions es regeixen per la legislació espanyola. Per resoldre qualsevol controvèrsia que pugui sorgir en relació amb aquest lloc web, les parts se sotmeten als jutjats i tribunals de Barcelona, excepte que la normativa aplicable disposi una altra cosa.",
+        aviso_section10_title: "10. Contacte",
+        aviso_section10_p1: "Per a qualsevol consulta relacionada amb aquest avís legal, podeu contactar amb FA GRUP a:",
+        aviso_email_label: "Email:",
+        aviso_phone_label: "Telèfon:",
+        aviso_contact_address_label: "Adreça:"
     },
     fr: {
         // Navigation
@@ -459,8 +730,29 @@ const translations = {
         contact_form_service: "Service d'intérêt",
         contact_form_select: "Sélectionnez un service",
         contact_form_message: "Message",
+        contact_privacy_info: "Responsable : FA GRUP. Finalité : répondre à votre demande. Base juridique : consentement et mesures précontractuelles. Droits : accès, rectification, suppression et autres droits RGPD à fagrupinmobiliaria@gmail.com.",
+        contact_consent_prefix: "J'ai lu et j'accepte la ",
+        contact_consent_and: " et les ",
+        contact_consent_error: "Vous devez accepter la Politique de Confidentialité et les Mentions Légales pour envoyer le formulaire.",
         contact_form_submit: "Envoyer la demande",
         contact_map_title: "Notre Emplacement",
+
+        // Cookie Modal
+        cookie_title: "Politique de cookies",
+        cookie_message: "Nous utilisons des cookies techniques nécessaires et, uniquement avec votre consentement, des cookies d'analyse ou de personnalisation.",
+        cookie_accept: "Accepter",
+        cookie_reject: "Refuser",
+        cookie_config: "Voir la politique de confidentialite",
+
+        // Testimonials
+        testimonials_title: "Que pensent-ils de nous?",
+        testimonial_1: "\"Service excellent et tres proche. Ils nous ont aides a chaque etape.\"",
+        testimonial_1_author: "- Laura M.",
+        testimonial_2: "\"Professionnels et transparents. Je recommande FA GRUP a 100%.\"",
+        testimonial_2_author: "- Carlos R.",
+        testimonial_3: "\"Gestion rapide et conseils clairs. Tout a ete simple.\"",
+        testimonial_3_author: "- Ana P.",
+        btn_more_reviews: "Voir plus d'avis",
         
         // Social
         social_title: "Suivez-nous sur les Réseaux Sociaux",
@@ -498,7 +790,44 @@ const translations = {
         privacy_section9_title: "9. Cookies",
         privacy_section10_title: "10. Modifications",
         privacy_section11_title: "11. Réclamations",
-        privacy_section12_title: "12. Contact"
+        privacy_section12_title: "12. Contact",
+
+        // Legal Notice Page
+        aviso_page_title: "Mentions Légales - FA GRUP",
+        aviso_title: "Mentions Légales",
+        aviso_subtitle: "Informations légales et conditions d'utilisation du site web de FA GRUP",
+        aviso_last_update: "Dernière mise à jour : 16 mars 2026",
+        aviso_section1_title: "1. Données d'identification du titulaire du site web",
+        aviso_section1_p1: "Conformément à la Loi 34/2002 du 11 juillet relative aux Services de la Société de l'Information et au Commerce Électronique (LSSI-CE), il est indiqué que le titulaire du présent site web est :",
+        aviso_holder_label: "Titulaire :",
+        aviso_address_label: "Adresse :",
+        aviso_section2_title: "2. Objet",
+        aviso_section2_p1: "Les présentes mentions légales régissent l'accès, la navigation et l'utilisation du site web de FA GRUP, ainsi que les responsabilités découlant de l'utilisation de ses contenus (textes, images, designs, code, documentation et tout autre matériel).",
+        aviso_section3_title: "3. Conditions d'utilisation",
+        aviso_section3_p1: "L'accès à ce site web confère la qualité d'utilisateur et implique l'acceptation pleine et entière des dispositions incluses dans les présentes mentions légales.",
+        aviso_section3_li1: "L'utilisateur s'engage à faire un usage approprié et licite du site web et de ses contenus.",
+        aviso_section3_li2: "Il est interdit de réaliser des activités illicites, frauduleuses ou contraires à la bonne foi et à l'ordre public.",
+        aviso_section3_li3: "FA GRUP se réserve le droit de modifier, à tout moment et sans préavis, la présentation et la configuration du site web, ainsi que les présentes mentions légales.",
+        aviso_section4_title: "4. Propriété intellectuelle et industrielle",
+        aviso_section4_p1: "Tous les contenus du site web (y compris, sans limitation, textes, photographies, graphiques, icônes, logiciels, design graphique et code source) sont la propriété de FA GRUP ou de tiers ayant autorisé leur utilisation.",
+        aviso_section4_p2: "La reproduction, distribution, communication publique, transformation ou toute autre forme d'exploitation, totale ou partielle, est interdite sans autorisation expresse et écrite du titulaire correspondant.",
+        aviso_section5_title: "5. Responsabilité",
+        aviso_section5_p1: "FA GRUP ne garantit pas la disponibilité continue ni l'absence d'erreurs dans l'accès au site web, bien qu'elle adopte des mesures raisonnables pour les éviter, les corriger ou les mettre à jour lorsque cela est nécessaire.",
+        aviso_section5_p2: "FA GRUP ne saurait être tenue responsable des dommages ou préjudices découlant de l'utilisation du site web, ni des actions réalisées sur la base des informations qui y figurent.",
+        aviso_section6_title: "6. Liens externes",
+        aviso_section6_p1: "Ce site web peut contenir des liens vers des pages de tiers. FA GRUP n'assume aucune responsabilité concernant les contenus, politiques ou pratiques de ces sites externes.",
+        aviso_section7_title: "7. Protection des données personnelles",
+        aviso_section7_p1: "Le traitement des données personnelles est effectué conformément à la réglementation en vigueur et à notre ",
+        aviso_privacy_link: "Politique de Confidentialité",
+        aviso_section8_title: "8. Politique de cookies",
+        aviso_section8_p1: "Ce site web utilise des cookies pour améliorer l'expérience de navigation. Vous pouvez consulter plus d'informations dans la section cookies de notre ",
+        aviso_section9_title: "9. Législation applicable et juridiction",
+        aviso_section9_p1: "Les présentes conditions sont régies par la législation espagnole. Pour la résolution de tout litige pouvant survenir en relation avec ce site web, les parties se soumettent aux tribunaux de Barcelone, sauf disposition contraire de la réglementation applicable.",
+        aviso_section10_title: "10. Contact",
+        aviso_section10_p1: "Pour toute question relative aux présentes mentions légales, vous pouvez contacter FA GRUP à :",
+        aviso_email_label: "Email :",
+        aviso_phone_label: "Téléphone :",
+        aviso_contact_address_label: "Adresse :"
     },
     en: {
         // Navigation
@@ -566,8 +895,29 @@ const translations = {
         contact_form_service: "Service of interest",
         contact_form_select: "Select a service",
         contact_form_message: "Message",
+        contact_privacy_info: "Controller: FA GRUP. Purpose: to respond to your inquiry. Legal basis: consent and pre-contractual measures. Rights: access, rectification, erasure and other GDPR rights at fagrupinmobiliaria@gmail.com.",
+        contact_consent_prefix: "I have read and accept the ",
+        contact_consent_and: " and the ",
+        contact_consent_error: "You must accept the Privacy Policy and Legal Notice before submitting the form.",
         contact_form_submit: "Submit inquiry",
         contact_map_title: "Our Location",
+
+        // Cookie Modal
+        cookie_title: "Cookie Policy",
+        cookie_message: "We use necessary technical cookies and, only with your consent, analytics or personalization cookies.",
+        cookie_accept: "Accept",
+        cookie_reject: "Reject",
+        cookie_config: "View privacy policy",
+
+        // Testimonials
+        testimonials_title: "What do clients think about us?",
+        testimonial_1: "\"Excellent service and very close attention. They helped us throughout the purchase.\"",
+        testimonial_1_author: "- Laura M.",
+        testimonial_2: "\"Professional and transparent. I recommend FA GRUP 100%.\"",
+        testimonial_2_author: "- Carlos R.",
+        testimonial_3: "\"Fast handling and clear guidance. Everything was easy.\"",
+        testimonial_3_author: "- Ana P.",
+        btn_more_reviews: "See more reviews",
         
         // Social
         social_title: "Follow us on Social Networks",
@@ -605,9 +955,92 @@ const translations = {
         privacy_section9_title: "9. Cookies",
         privacy_section10_title: "10. Modifications",
         privacy_section11_title: "11. Complaints",
-        privacy_section12_title: "12. Contact"
+        privacy_section12_title: "12. Contact",
+
+        // Legal Notice Page
+        aviso_page_title: "Legal Notice - FA GRUP",
+        aviso_title: "Legal Notice",
+        aviso_subtitle: "Legal information and terms of use of FA GRUP's website",
+        aviso_last_update: "Last update: March 16, 2026",
+        aviso_section1_title: "1. Identification details of the website owner",
+        aviso_section1_p1: "In compliance with Law 34/2002, of July 11, on Information Society Services and Electronic Commerce (LSSI-CE), it is stated that the owner of this website is:",
+        aviso_holder_label: "Owner:",
+        aviso_address_label: "Address:",
+        aviso_section2_title: "2. Purpose",
+        aviso_section2_p1: "This legal notice regulates access to, browsing of and use of FA GRUP's website, as well as responsibilities arising from the use of its contents (texts, images, designs, code, documentation and any other material).",
+        aviso_section3_title: "3. Terms of use",
+        aviso_section3_p1: "Access to this website grants user status and implies full and unreserved acceptance of the provisions included in this legal notice.",
+        aviso_section3_li1: "The user undertakes to make appropriate and lawful use of the website and its contents.",
+        aviso_section3_li2: "Unlawful, fraudulent activities or those contrary to good faith and public order are prohibited.",
+        aviso_section3_li3: "FA GRUP reserves the right to modify, at any time and without prior notice, the presentation and configuration of the website, as well as this legal notice.",
+        aviso_section4_title: "4. Intellectual and industrial property",
+        aviso_section4_p1: "All website contents (including, but not limited to, texts, photographs, graphics, icons, software, graphic design and source code) are owned by FA GRUP or by third parties who have authorized their use.",
+        aviso_section4_p2: "Reproduction, distribution, public communication, transformation or any other form of exploitation, in whole or in part, is prohibited without express written authorization from the corresponding owner.",
+        aviso_section5_title: "5. Liability",
+        aviso_section5_p1: "FA GRUP does not guarantee continuous availability or the absence of errors in website access, although it will adopt reasonable measures to avoid, correct or update them when appropriate.",
+        aviso_section5_p2: "FA GRUP is not responsible for damages arising from the use of the website, or from actions taken based on the information contained therein.",
+        aviso_section6_title: "6. External links",
+        aviso_section6_p1: "This website may contain links to third-party pages. FA GRUP assumes no responsibility for the contents, policies or practices of such external sites.",
+        aviso_section7_title: "7. Personal data protection",
+        aviso_section7_p1: "Personal data processing is carried out in accordance with applicable regulations and our ",
+        aviso_privacy_link: "Privacy Policy",
+        aviso_section8_title: "8. Cookie policy",
+        aviso_section8_p1: "This website uses cookies to improve the browsing experience. You can find more information in the cookies section of our ",
+        aviso_section9_title: "9. Applicable law and jurisdiction",
+        aviso_section9_p1: "These terms are governed by Spanish law. For the resolution of any dispute that may arise in relation to this website, the parties submit to the courts of Barcelona, unless applicable regulations provide otherwise.",
+        aviso_section10_title: "10. Contact",
+        aviso_section10_p1: "For any query related to this legal notice, you can contact FA GRUP at:",
+        aviso_email_label: "Email:",
+        aviso_phone_label: "Phone:",
+        aviso_contact_address_label: "Address:"
     }
 };
+
+function initCookieConsent() {
+    const modal = document.getElementById('cookie-consent-modal');
+    if (!modal) {
+        return;
+    }
+
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+    const configButton = document.getElementById('cookie-config');
+    const savedConsent = localStorage.getItem('cookieConsent');
+
+    const hideModal = () => {
+        modal.classList.remove('is-visible');
+        document.body.classList.remove('cookie-modal-open');
+    };
+
+    if (!savedConsent) {
+        modal.classList.add('is-visible');
+        document.body.classList.add('cookie-modal-open');
+        if (acceptButton) {
+            acceptButton.focus();
+        }
+    }
+
+    if (acceptButton) {
+        acceptButton.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            hideModal();
+        });
+    }
+
+    if (rejectButton) {
+        rejectButton.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'rejected');
+            hideModal();
+        });
+    }
+
+    if (configButton) {
+        configButton.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'configured');
+            hideModal();
+        });
+    }
+}
 
 // Language Change Function
 function changeLanguage(lang) {
@@ -651,6 +1084,7 @@ function changeLanguage(lang) {
 
 // Apply translations on page load
 document.addEventListener('DOMContentLoaded', () => {
+    initCookieConsent();
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-menu a');
     
@@ -696,6 +1130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedLang !== 'es') {
         changeLanguage(savedLang);
     }
+
+    initTestimonialsCarousel();
 });
 
 // Notification function
