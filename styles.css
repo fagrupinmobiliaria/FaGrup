@@ -254,6 +254,10 @@ h6,
     width: 100%;
     margin-top: 80px;
     padding: 0;
+    .company-logo {
+        margin-bottom: 18px;
+        /* Les logos sont déjà centrés par align-items: center sur .company-card */
+    }
 }
 
 .hero-carousel {
