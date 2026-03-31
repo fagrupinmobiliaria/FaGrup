@@ -82,7 +82,7 @@ const translations = {
         btn_contact: "Contáctanos",
 
         intro_title: "¿Qué es FA GRUP?",
-        intro_text: "FA GRUP es una inmobiliaria de Barcelona fundada en 2019, especializada en ofrecer un servicio integral en el sector inmobiliario. Acompañamos al cliente durante todas las etapas de compra, venta o alquiler con profesionalidad y cercanía. Nos distinguimos por nuestra atención personalizada, conocimiento del mercado local y compromiso con la transparencia.",
+        intro_text: "FA GRUP es una inmobiliaria de Barcelona fundada en 2019, especializada en ofrecer un servicio integral en el sector inmobiliario. Acompañamos al cliente durante todas las etapas de compra, venta o alquiler con profesionalidad y cercanía. Como miembros de AICAT y AEPJ, nos distinguimos por nuestra atención personalizada, conocimiento del mercado local y un firme compromiso con la transparencia legal.",
 
         services_title: "Nuestros Servicios",
         service_inmobiliaria: "Inmobiliaria",
@@ -233,7 +233,7 @@ const translations = {
         btn_contact: "Contacta'ns",
 
         intro_title: "Què és FA GRUP?",
-        intro_text: "FA GRUP és una immobiliària de Barcelona fundada el 2019, especialitzada en oferir un servei integral al sector immobiliari. Acompanyem el client durant totes les etapes de compra, venda o lloguer amb professionalitat i proximitat. Ens distingim per la nostra atenció personalitzada, coneixement del mercat local i compromís amb la transparència.",
+        intro_text: "FA GRUP és una immobiliària de Barcelona fundada el 2019, especialitzada en oferir un servei integral al sector immobiliari. Acompanyem el client durant totes les etapes de compra, venda o lloguer amb professionalitat i proximitat. Com a membres d'AICAT i AEPJ, ens distingim per la nostra atenció personalitzada, coneixement del mercat local i un ferm compromís amb la transparència legal.",
 
         services_title: "Els Nostres Serveis",
         service_inmobiliaria: "Immobiliària",
@@ -384,7 +384,7 @@ const translations = {
         btn_contact: "Contactez-nous",
 
         intro_title: "Qu'est-ce que FA GRUP?",
-        intro_text: "FA GRUP est une agence immobilière de Barcelone fondée en 2019, spécialisée dans l'offre d'un service intégral dans le secteur immobilier. Nous accompagnons le client pendant toutes les étapes d'achat, de vente ou de location avec professionnalisme et proximité. Nous nous distinguons par notre attention personnalisée, notre connaissance du marché local et notre engagement envers la transparence.",
+        intro_text: "FA GRUP est une agence immobilière de Barcelone fondée en 2019, spécialisée dans l'offre d'un service intégral dans le secteur immobilier. Nous accompagnons le client pendant toutes les étapes d'achat, de vente ou de location avec professionnalisme et proximité. En tant que membres de l'AICAT et de l'AEPJ, nous nous distinguons par notre attention personnalisée, notre connaissance du marché local et un engagement ferme envers la transparence légale.",
 
         services_title: "Nos Services",
         service_inmobiliaria: "Immobilier",
@@ -535,7 +535,7 @@ const translations = {
         btn_contact: "Contact Us",
 
         intro_title: "What is FA GRUP?",
-        intro_text: "FA GRUP is a Barcelona real estate agency founded in 2019, specialized in offering a comprehensive service in the real estate sector. We accompany clients through all stages of buying, selling or renting with professionalism and proximity. We distinguish ourselves by our personalized attention, knowledge of the local market and commitment to transparency.",
+        intro_text: "FA GRUP is a Barcelona real estate agency founded in 2019, specialized in offering a comprehensive service in the real estate sector. We accompany clients through all stages of buying, selling or renting with professionalism and proximity. As members of AICAT and AEPJ, we distinguish ourselves by our personalized attention, knowledge of the local market and a strong commitment to legal transparency.",
 
         services_title: "Our Services",
         service_inmobiliaria: "Real Estate",
