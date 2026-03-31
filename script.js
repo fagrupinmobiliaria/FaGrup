@@ -139,6 +139,12 @@ const translations = {
         cookie_reject: "Rechazar",
         cookie_config: "Ver politica de privacidad",
 
+    // Ajouts internationaux
+    feature_international_title: "Inmobiliaria Internacional",
+    feature_international_desc: "Conexión estratégica entre mercados. Ofrecemos servicios inmobiliarios especializados tanto en Barcelona como en Ecuador, con asesoramiento integral en ambos países.",
+    faq_services_international: "Ofrecemos servicios inmobiliarios, seguros y agencia de viajes en Cataluña y Ecuador, con asesoramiento integral y personalizado.",
+    faq_focus_international: "Nuestra actividad se centra principalmente en el mercado de Cataluña y Ecuador, con capacidad para gestionar y valorar proyectos en otras ubicaciones internacionales.",
+
         testimonials_title: "¿Qué opinan de nosotros?",
         testimonial_1: "\"Atencion excelente y trato muy cercano. Nos ayudaron en todo el proceso de compra.\"",
         testimonial_1_author: "- Laura M.",
@@ -289,6 +295,12 @@ const translations = {
         cookie_accept: "Acceptar",
         cookie_reject: "Rebutjar",
         cookie_config: "Veure politica de privacitat",
+
+    // Afegits internacionals
+    feature_international_title: "Immobiliària Internacional",
+    feature_international_desc: "Connexió estratègica entre mercats. Oferim serveis immobiliaris especialitzats tant a Barcelona com a l'Equador, amb assessorament integral a ambdós països.",
+    faq_services_international: "Oferim serveis immobiliaris, assegurances i agència de viatges a Catalunya i l'Equador, amb assessorament integral i personalitzat.",
+    faq_focus_international: "La nostra activitat se centra principalment en el mercat de Catalunya i l'Equador, amb capacitat per gestionar i valorar projectes en altres ubicacions internacionals.",
 
         testimonials_title: "Que opinen de nosaltres?",
         testimonial_1: "\"Atencio excel.lent i tracte molt proper. Ens van ajudar en tot el proces de compra.\"",
@@ -441,6 +453,12 @@ const translations = {
         cookie_reject: "Refuser",
         cookie_config: "Voir la politique de confidentialite",
 
+    // Ajouts internationaux
+    feature_international_title: "Immobilier International",
+    feature_international_desc: "Connexion stratégique entre les marchés. Nous offrons des services immobiliers spécialisés à la fois à Barcelone et en Équateur, avec un accompagnement complet dans les deux pays.",
+    faq_services_international: "Nous proposons des services immobiliers, des assurances et une agence de voyages en Catalogne et en Équateur, avec un accompagnement complet et personnalisé.",
+    faq_focus_international: "Notre activité se concentre principalement sur le marché de la Catalogne et de l'Équateur, avec la capacité de gérer et d'évaluer des projets dans d'autres localisations internationales.",
+
         testimonials_title: "Que pensent-ils de nous?",
         testimonial_1: "\"Service excellent et tres proche. Ils nous ont aides a chaque etape.\"",
         testimonial_1_author: "- Laura M.",
@@ -591,6 +609,12 @@ const translations = {
         cookie_accept: "Accept",
         cookie_reject: "Reject",
         cookie_config: "View privacy policy",
+
+    // International additions
+    feature_international_title: "International Real Estate",
+    feature_international_desc: "Strategic connection between markets. We offer specialized real estate services in both Barcelona and Ecuador, with comprehensive advice in both countries.",
+    faq_services_international: "We offer real estate, insurance and travel agency services in Catalonia and Ecuador, with comprehensive and personalized advice.",
+    faq_focus_international: "Our activity is mainly focused on the Catalonia and Ecuador markets, with the ability to manage and evaluate projects in other international locations.",
 
         testimonials_title: "What do clients think about us?",
         testimonial_1: "\"Excellent service and very close attention. They helped us throughout the purchase.\"",
