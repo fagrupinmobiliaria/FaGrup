@@ -82,6 +82,7 @@ const translations = {
         carousel_seguros: "SEGUROS",
         carousel_mision: "NUESTRA MISIÓN<br>ÉXITO INMOBILIARIO CON SEGURIDAD Y CERCANÍA.",
         carousel_vision: "VISIÓN<br>CONVERTIRSE EN LA INMOBILIARIA DE REFERENCIA, RECONOCIDA POR CERCANÍA, CONFIANZA Y EXCELENCIA INTEGRAL.",
+        carousel_siemprecontigo: "SIEMPRE CONTIGO",
         hero_subtitle: "Tu inmobiliaria de confianza en Barcelona. Acompañamiento profesional y cercano en compra, venta y alquiler",
         btn_contact: "Contáctanos",
 
@@ -399,6 +400,7 @@ const translations = {
         carousel_seguros: "ASSEGURANCES",
         carousel_mision: "LA NOSTRA MISSIÓ<br>ÈXIT IMMOBILIARI AMB SEGURETAT I PROXIMITAT.",
         carousel_vision: "VISIÓ<br>CONVERTIR-NOS EN LA IMMOBILIÀRIA DE REFERÈNCIA, RECONEGUDA PER PROXIMITAT, CONFIANÇA I EXCEL·LÈNCIA INTEGRAL.",
+        carousel_siemprecontigo: "SEMPRE AMB TU",
         hero_subtitle: "La teva immobiliària de confiança a Barcelona. Acompanyament professional i proper en compra, venda i lloguer",
         btn_contact: "Contacta'ns",
 
@@ -716,6 +718,7 @@ const translations = {
         carousel_seguros: "ASSURANCES",
         carousel_mision: "NOTRE MISSION<br>SUCCÈS IMMOBILIER AVEC SÉCURITÉ ET PROXIMITÉ.",
         carousel_vision: "VISION<br>DEVENIR L'AGENCE IMMOBILIÈRE DE RÉFÉRENCE, RECONNUE POUR LA PROXIMITÉ, LA CONFIANCE ET L'EXCELLENCE INTÉGRALE.",
+        carousel_siemprecontigo: "TOUJOURS AVEC VOUS",
         hero_subtitle: "Votre agence immobilière de confiance à Barcelone. Accompagnement professionnel et proche pour l'achat, la vente et la location",
         btn_contact: "Contactez-nous",
 
@@ -1033,6 +1036,7 @@ const translations = {
         carousel_seguros: "INSURANCE",
         carousel_mision: "OUR MISSION<br>REAL ESTATE SUCCESS WITH SECURITY AND PROXIMITY.",
         carousel_vision: "VISION<br>BECOME THE LEADING REAL ESTATE AGENCY, RECOGNIZED FOR PROXIMITY, TRUST AND INTEGRAL EXCELLENCE.",
+        carousel_siemprecontigo: "ALWAYS WITH YOU",
         hero_subtitle: "Your trusted real estate agency in Barcelona. Professional and close support in buying, selling and renting",
         btn_contact: "Contact Us",
 
