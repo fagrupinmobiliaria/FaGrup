@@ -78,6 +78,10 @@ const translations = {
 
         hero_title: "FA GRUP - Inmobiliaria en Barcelona",
         hero_slogan: "Siempre Contigo",
+        carousel_viaje: "VIAJE",
+        carousel_seguros: "SEGUROS",
+        carousel_mision: "NUESTRA MISIÓN<br>ÉXITO INMOBILIARIO CON SEGURIDAD Y CERCANÍA.",
+        carousel_vision: "VISIÓN<br>CONVERTIRSE EN LA INMOBILIARIA DE REFERENCIA, RECONOCIDA POR CERCANÍA, CONFIANZA Y EXCELENCIA INTEGRAL.",
         hero_subtitle: "Tu inmobiliaria de confianza en Barcelona. Acompañamiento profesional y cercano en compra, venta y alquiler",
         btn_contact: "Contáctanos",
 
@@ -235,6 +239,10 @@ const translations = {
 
         hero_title: "FA GRUP - Immobiliària a Barcelona",
         hero_slogan: "Sempre amb Tu",
+        carousel_viaje: "VIATGE",
+        carousel_seguros: "ASSEGURANCES",
+        carousel_mision: "LA NOSTRA MISSIÓ<br>ÈXIT IMMOBILIARI AMB SEGURETAT I PROXIMITAT.",
+        carousel_vision: "VISIÓ<br>CONVERTIR-NOS EN LA IMMOBILIÀRIA DE REFERÈNCIA, RECONEGUDA PER PROXIMITAT, CONFIANÇA I EXCEL·LÈNCIA INTEGRAL.",
         hero_subtitle: "La teva immobiliària de confiança a Barcelona. Acompanyament professional i proper en compra, venda i lloguer",
         btn_contact: "Contacta'ns",
 
@@ -392,6 +400,10 @@ const translations = {
 
         hero_title: "FA GRUP - Agence Immobilière à Barcelone",
         hero_slogan: "Toujours avec Vous",
+        carousel_viaje: "VOYAGE",
+        carousel_seguros: "ASSURANCES",
+        carousel_mision: "NOTRE MISSION<br>SUCCÈS IMMOBILIER AVEC SÉCURITÉ ET PROXIMITÉ.",
+        carousel_vision: "VISION<br>DEVENIR L'AGENCE IMMOBILIÈRE DE RÉFÉRENCE, RECONNUE POUR LA PROXIMITÉ, LA CONFIANCE ET L'EXCELLENCE INTÉGRALE.",
         hero_subtitle: "Votre agence immobilière de confiance à Barcelone. Accompagnement professionnel et proche pour l'achat, la vente et la location",
         btn_contact: "Contactez-nous",
 
@@ -549,6 +561,10 @@ const translations = {
 
         hero_title: "FA GRUP - Real Estate in Barcelona",
         hero_slogan: "Always with You",
+        carousel_viaje: "TRAVEL",
+        carousel_seguros: "INSURANCE",
+        carousel_mision: "OUR MISSION<br>REAL ESTATE SUCCESS WITH SECURITY AND PROXIMITY.",
+        carousel_vision: "VISION<br>BECOME THE LEADING REAL ESTATE AGENCY, RECOGNIZED FOR PROXIMITY, TRUST AND INTEGRAL EXCELLENCE.",
         hero_subtitle: "Your trusted real estate agency in Barcelona. Professional and close support in buying, selling and renting",
         btn_contact: "Contact Us",
 
@@ -710,7 +726,12 @@ function changeLanguage(lang) {
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
             element.placeholder = t[key];
         } else {
-            element.textContent = t[key];
+            // Use innerHTML if the translation contains HTML tags, otherwise use textContent
+            if (t[key].includes('<')) {
+                element.innerHTML = t[key];
+            } else {
+                element.textContent = t[key];
+            }
         }
     });
 
