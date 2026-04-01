@@ -195,6 +195,12 @@ const translations = {
         footer_privacy: "Política de Privacidad",
         footer_rights: "Todos los derechos reservados",
 
+        footer_link_inmobiliaria: "Inmobiliaria",
+        footer_link_seguros: "Seguros",
+        footer_link_viajes: "Agencia de Viajes",
+        footer_link_about: "Sobre Nosotros",
+        footer_link_contact: "Contacto",
+
         legal_hero_title: "Departamento Legal",
         legal_hero_subtitle: "FA Asesoría Global - Asesoramiento jurídico integral",
         legal_intro_title: "Servicios del Departamento Legal",
@@ -382,6 +388,12 @@ const translations = {
         footer_legal: "Avís Legal",
         footer_privacy: "Política de Privacitat",
         footer_rights: "Tots els drets reservats",
+
+        footer_link_inmobiliaria: "Immobiliaria",
+        footer_link_seguros: "Assegurances",
+        footer_link_viajes: "Agència de Viatges",
+        footer_link_about: "Sobre Nosaltres",
+        footer_link_contact: "Contacte",
 
         legal_hero_title: "Departament Legal",
         legal_hero_subtitle: "FA Assessoria Global - Assessorament jurídic integral",
@@ -571,6 +583,12 @@ const translations = {
         footer_privacy: "Politique de Confidentialité",
         footer_rights: "Tous droits réservés",
 
+        footer_link_inmobiliaria: "Immobilier",
+        footer_link_seguros: "Assurances",
+        footer_link_viajes: "Agence de Voyage",
+        footer_link_about: "À Propos de Nous",
+        footer_link_contact: "Contact",
+
         legal_hero_title: "Département Juridique",
         legal_hero_subtitle: "FA Conseil Global - Conseil juridique intégral",
         legal_intro_title: "Services du Département Juridique",
@@ -758,6 +776,12 @@ const translations = {
         footer_legal: "Legal Notice",
         footer_privacy: "Privacy Policy",
         footer_rights: "All rights reserved",
+
+        footer_link_inmobiliaria: "Real Estate",
+        footer_link_seguros: "Insurance",
+        footer_link_viajes: "Travel Agency",
+        footer_link_about: "About Us",
+        footer_link_contact: "Contact",
 
         legal_hero_title: "Legal Department",
         legal_hero_subtitle: "FA Global Advisory - Comprehensive legal counsel",
