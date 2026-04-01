@@ -102,6 +102,7 @@ const translations = {
         btn_read_more: "Leer más",
 
         companies_title: "Empresas Asociadas",
+        companies_intro: "Con el objetivo de ofrecer un servicio global, ampliamos nuestros servicios como asesoría empresarial, ofreciendo soluciones integrales en las áreas fiscal, contable, laboral y estratégica. Nuestro objetivo es acompañar a empresas, autónomos y emprendedores en la gestión eficiente de su actividad, aportando claridad y un enfoque orientado a resultados.",
         company_fa_asesoria: "FA Asesoría Global",
         company_fa_desc: "Servicios de abogados, asesoría legal y jurídica. Especialistas en derecho penal, laboral, familiar, civil y administrativo.",
         company_cictaec: "CICTAEC",
@@ -263,6 +264,7 @@ const translations = {
         btn_read_more: "Llegir més",
 
         companies_title: "Empreses Associades",
+        companies_intro: "Amb l'objectiu d'oferir un servei global, ampliem els nostres serveis com a assessoria empresarial, oferint solucions integrals en les àrees fiscal, comptable, laboral i estratègica. El nostre objectiu és acompanyar empreses, autònoms i emprenedors en la gestió eficient de la seva activitat, aportant claredat i un enfocament orientat a resultats.",
         company_fa_asesoria: "FA Assessoria Global",
         company_fa_desc: "Serveis d'advocats, assessoria legal i jurídica. Especialistes en dret penal, laboral, familiar, civil i administratiu.",
         company_cictaec: "CICTAEC",
@@ -424,6 +426,7 @@ const translations = {
         btn_read_more: "En savoir plus",
 
         companies_title: "Entreprises Associées",
+        companies_intro: "Dans l'objectif d'offrir un service global, nous élargissons nos services en tant que conseil aux entreprises, proposant des solutions intégrales dans les domaines fiscal, comptable, social et stratégique. Notre objectif est d'accompagner les entreprises, les indépendants et les entrepreneurs dans la gestion efficace de leur activité, en apportant clarté et une approche orientée résultats.",
         company_fa_asesoria: "FA Conseil Global",
         company_fa_desc: "Services d'avocats, conseil juridique. Spécialistes en droit pénal, du travail, de la famille, civil et administratif.",
         company_cictaec: "CICTAEC",
@@ -585,6 +588,7 @@ const translations = {
         btn_read_more: "Read more",
 
         companies_title: "Associated Companies",
+        companies_intro: "With the aim of offering a global service, we expand our services as business consultancy, providing comprehensive solutions in the fiscal, accounting, labor and strategic areas. Our goal is to accompany companies, self-employed and entrepreneurs in the efficient management of their activity, bringing clarity and a results-oriented approach.",
         company_fa_asesoria: "FA Global Advisory",
         company_fa_desc: "Lawyers services, legal and juridical advisory. Specialists in criminal, labor, family, civil and administrative law.",
         company_cictaec: "CICTAEC",
