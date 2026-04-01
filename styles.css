@@ -32,6 +32,23 @@
     transform: translateY(-50%);
 }
 
+/* Carousel caption for VISION slide */
+.vision-caption {
+    position: absolute;
+    top: 50%;
+    right: 80px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: right;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 16px rgba(0,0,0,0.5);
+    max-width: 35vw;
+    z-index: 2;
+    transform: translateY(-50%);
+}
+
 /* ==================== RESET Y VARIABLES ==================== */
 * {
     margin: 0;
