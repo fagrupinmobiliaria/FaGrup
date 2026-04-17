@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palacio Almunia de San Juan | FA GRUP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=The+Seasons:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --palacio-bg: #f8f4ec;
+            --palacio-ink: #151515;
+            --palacio-gold: #c7a14d;
+            --palacio-cream: #fff9ef;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(248, 244, 236, 0.92), rgba(248, 244, 236, 0.96)), url('images/fondo_del_index.jpg');
+            background-attachment: fixed;
+        }
+
+        .palacio-hero {
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 0 80px;
+            position: relative;
+            background:
+                linear-gradient(120deg, rgba(14, 14, 14, 0.75), rgba(14, 14, 14, 0.35)),
+                url('images/vista_palacio.jpeg') top center/cover no-repeat;
+            color: #fff;
+        }
+
+        .palacio-hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--palacio-bg), transparent);
+        }
+
+        .palacio-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+        }
+
+        .palacio-kicker {
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #f0d89d;
+            margin-bottom: 0.8rem;
+        }
+
+        .palacio-hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .palacio-hero .lead {
+            font-size: 1.08rem;
+            max-width: 680px;
+        }
+
+        .palacio-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 1.8rem;
+        }
+
+        .btn-palacio {
+            display: inline-block;
+            border: 1px solid var(--palacio-gold);
+            color: var(--palacio-gold);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.72rem 1.2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .btn-palacio:hover {
+            color: #151515;
+            background: var(--palacio-gold);
+        }
+
+        .palacio-section {
+            padding: 82px 0;
+        }
+
+        .palacio-intro {
+            background: var(--palacio-bg);
+        }
+
+        .palacio-intro-box {
+            background: #fff;
+            border: 1px solid rgba(199, 161, 77, 0.28);
+            border-radius: 20px;
+            box-shadow: 0 16px 50px rgba(19, 19, 19, 0.08);
+            padding: clamp(24px, 4vw, 42px);
+        }
+
+        .palacio-title {
+            text-align: left;
+            font-size: clamp(1.8rem, 3.3vw, 2.8rem);
+            color: var(--palacio-ink);
+            margin-bottom: 1.2rem;
+        }
+
+        .gold-line {
+            width: 120px;
+            height: 2px;
+            background: var(--palacio-gold);
+            margin: 0 0 1.5rem;
+        }
+
+        .universes-grid,
+        .domain-grid,
+        .signature-grid,
+        .gallery-grid,
+        .trust-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .fact-card {
+            background: #fff;
+            border: 1px solid rgba(199, 161, 77, 0.26);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .facts-grid.is-visible .fact-card {
+            animation: vignetteIn 0.75s ease forwards;
+        }
+
+        .fact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #1d1d1d;
+        }
+
+        .universes-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .universe-card,
+        .domain-card,
+        .signature-card,
+        .gallery-card,
+        .trust-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-40px);
+            animation: vignetteIn 0.75s ease forwards;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .universe-card::after,
+        .domain-card::after,
+        .signature-card::after,
+        .gallery-card::after,
+        .trust-card::after,
+        .fact-card::after,
+        .access-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            transition: left 0.55s ease;
+            z-index: 2;
+        }
+
+        .universe-card:hover,
+        .domain-card:hover,
+        .signature-card:hover,
+        .gallery-card:hover,
+        .trust-card:hover,
+        .fact-card:hover,
+        .access-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+        }
+
+        .universe-card:hover::after,
+        .domain-card:hover::after,
+        .signature-card:hover::after,
+        .gallery-card:hover::after,
+        .trust-card:hover::after,
+        .fact-card:hover::after,
+        .access-card:hover::after {
+            left: 130%;
+        }
+
+        .universe-card h3,
+        .domain-card h3,
+        .signature-card h3,
+        .trust-card h3 {
+            font-size: 1.45rem;
+            margin-bottom: 0.8rem;
+            color: #1d1d1d;
+        }
+
+        .universe-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .universe-card > * {
+            position: relative;
+            z-index: 3;
+        }
+
+        .universe-hover-btn {
+            margin-top: auto;
+            align-self: flex-start;
+            background: #171717;
+            color: #fff;
+            border: 1px solid #171717;
+            border-radius: 999px;
+            padding: 0.55rem 1rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.28s ease, transform 0.28s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .universe-card:hover .universe-hover-btn,
+        .universe-card:focus-within .universe-hover-btn {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .universe-hover-btn:hover,
+        .universe-hover-btn:focus-visible {
+            background: var(--palacio-gold);
+            border-color: var(--palacio-gold);
+            color: #151515;
+        }
+
+        @media (hover: none) {
+            .universe-hover-btn {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+        }
+
+        .palacio-muted {
+            color: #4d4d4d;
+        }
+
+        .domain-grid,
+        .signature-grid,
+        .trust-grid {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .icon-bullet {
+            font-size: 1.2rem;
+            color: var(--palacio-gold);
+            margin-right: 8px;
+        }
+
+        .gallery-wrap {
+            background: linear-gradient(180deg, #f4ede0, #f8f4ec);
+            border-top: 1px solid rgba(199, 161, 77, 0.3);
+            border-bottom: 1px solid rgba(199, 161, 77, 0.3);
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .gallery-card {
+            color: #fff;
+            min-height: 230px;
+            display: flex;
+            align-items: flex-end;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2));
+        }
+
+        .gallery-card p {
+            position: relative;
+            margin: 0;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .contact-block {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid rgba(199, 161, 77, 0.26);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            padding: clamp(22px, 4vw, 40px);
+        }
+
+        .access-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 18px;
+        }
+
+        .access-card {
+            background: #fff;
+            border: 1px solid rgba(199, 161, 77, 0.26);
+            border-radius: 18px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-40px);
+            animation: vignetteIn 0.75s ease forwards;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .access-card p {
+            margin-bottom: 0.8rem;
+        }
+
+        .map-embed {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(199, 161, 77, 0.26);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            min-height: 320px;
+        }
+
+        .map-embed iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            border: 0;
+        }
+
+        .palacio-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            margin-top: 1.6rem;
+        }
+
+        .palacio-form .full {
+            grid-column: 1 / -1;
+        }
+
+        .palacio-form label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .palacio-form input,
+        .palacio-form select,
+        .palacio-form textarea {
+            width: 100%;
+            border: 1px solid rgba(22, 22, 22, 0.22);
+            border-radius: 12px;
+            padding: 0.7rem 0.8rem;
+            background: #fff;
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+        }
+
+        .palacio-form textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .consent-wrap {
+            background: var(--palacio-cream);
+            border: 1px solid rgba(199, 161, 77, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .consent-wrap p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #3f3f3f;
+        }
+
+        .consent-wrap label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 0;
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        .consent-wrap input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        .btn-submit {
+            width: fit-content;
+            border: 0;
+            border-radius: 999px;
+            padding: 0.78rem 1.3rem;
+            background: #171717;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            background: var(--palacio-gold);
+            color: #151515;
+        }
+
+        @keyframes vignetteIn {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .universes-grid .universe-card:nth-child(1),
+        .domain-grid .domain-card:nth-child(1),
+        .signature-grid .signature-card:nth-child(1),
+        .gallery-grid .gallery-card:nth-child(1),
+        .trust-grid .trust-card:nth-child(1),
+        .facts-grid.is-visible .fact-card:nth-child(1) {
+            animation-delay: 0.06s;
+        }
+
+        .universes-grid .universe-card:nth-child(2),
+        .domain-grid .domain-card:nth-child(2),
+        .signature-grid .signature-card:nth-child(2),
+        .gallery-grid .gallery-card:nth-child(2),
+        .trust-grid .trust-card:nth-child(2),
+        .facts-grid.is-visible .fact-card:nth-child(2) {
+            animation-delay: 0.16s;
+        }
+
+        .universes-grid .universe-card:nth-child(3),
+        .domain-grid .domain-card:nth-child(3),
+        .signature-grid .signature-card:nth-child(3),
+        .gallery-grid .gallery-card:nth-child(3),
+        .trust-grid .trust-card:nth-child(3),
+        .facts-grid.is-visible .fact-card:nth-child(3) {
+            animation-delay: 0.26s;
+        }
+
+        .gallery-grid .gallery-card:nth-child(4) {
+            animation-delay: 0.36s;
+        }
+
+        .access-card {
+            animation-delay: 0.14s;
+        }
+
+        @media (max-width: 768px) {
+            .palacio-hero {
+                min-height: 85vh;
+                padding-top: 125px;
+            }
+
+            .palacio-hero .lead {
+                font-size: 1rem;
+            }
+
+            .access-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="images/FA GRUP LOGO.svg" alt="FA GRUP Logo">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="palacio-hero">
+        <div class="container">
+            <div class="palacio-hero-content">
+                <p class="palacio-kicker">FA GRUP Signature Places</p>
+                <h1>Palacio Almunia de San Juan</h1>
+                <p class="lead">Donde tus momentos se convierten en legado. Lugar singular dedicado a eventos de prestigio, donde la elegancia y la historia se encuentran.</p>
+                <div class="palacio-cta">
+                    <a href="#contacto-palacio" class="btn-palacio">Organizar una visita privada</a>
+                    <a href="#universos" class="btn-palacio">Imaginar tu evento en el Palacio</a>
+                    <a href="#como-llegar" class="btn-palacio">Ver cómo llegar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="palacio-section palacio-intro">
+        <div class="container">
+            <div class="palacio-intro-box">
+                <h2 class="palacio-title">Una experiencia fuera del tiempo</h2>
+                <div class="gold-line"></div>
+                <p>Bienvenido a un lugar donde el tiempo se detiene. Situado en un entorno natural privilegiado, el Palacio combina patrimonio, intimidad y sofisticación.</p>
+                <p class="palacio-muted">Cada piedra cuenta una historia. Cada luz realza un instante. Cada evento se transforma en una experiencia inolvidable.</p>
+                <p>Para preservar su carácter exclusivo, el Palacio acoge un número limitado de eventos al año, garantizando una privatización total y una atención totalmente personalizada.</p>
+                <div class="facts-grid" aria-label="Datos clave del Palacio">
+                    <article class="fact-card">
+                        <h3>Capacidad recomendada</h3>
+                        <p>Hasta 180 comensales en formato banquete y configuraciones flexibles para eventos de menor escala.</p>
+                    </article>
+                    <article class="fact-card">
+                        <h3>Plan B climatológico</h3>
+                        <p>Alternativa interior elegante preparada para mantener la experiencia si las condiciones meteorológicas cambian.</p>
+                    </article>
+                    <article class="fact-card">
+                        <h3>Entorno histórico</h3>
+                        <p>Arquitectura señorial con carácter, integrada en un paisaje natural con legado de siglos.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="universos" class="palacio-section">
+        <div class="container">
+            <h2 class="section-title">Nuestros universos</h2>
+            <div class="universes-grid">
+                <article class="universe-card">
+                    <h3>💍 Bodas y ceremonias</h3>
+                    <p>Imagina una ceremonia bajo árboles centenarios, seguida de una cena elegante a la luz de las velas en un salón cargado de historia. Cada detalle está diseñado para dar vida a un momento único, hecho a tu medida.</p>
+                    <a href="#contacto-palacio" class="universe-hover-btn">Imaginar tu boda en el Palacio</a>
+                </article>
+                <article class="universe-card">
+                    <h3>🎬 Rodajes y sesiones fotográficas</h3>
+                    <p>Un entorno arquitectónico auténtico, una luz natural excepcional y espacios versátiles convierten el Palacio en el escenario ideal para producciones cinematográficas, campañas de moda o proyectos creativos.</p>
+                    <a href="#contacto-palacio" class="universe-hover-btn">Descubrir nuestro book técnico</a>
+                </article>
+                <article class="universe-card">
+                    <h3>💼 Eventos corporativos</h3>
+                    <p>Ofrece a tus equipos y socios un entorno inspirador, propicio para la creatividad y la excelencia. Seminarios, lanzamientos o recepciones adquieren aquí una dimensión única.</p>
+                    <a href="#contacto-palacio" class="universe-hover-btn">Explorar nuestras soluciones corporativas</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="palacio-section" style="padding-top: 0;">
+        <div class="container">
+            <h2 class="section-title">El dominio</h2>
+            <div class="domain-grid">
+                <article class="domain-card">
+                    <h3><span class="icon-bullet">🏰</span>Arquitectura con carácter</h3>
+                    <p>Salones históricos restaurados con una atmósfera noble para celebraciones de alto nivel.</p>
+                </article>
+                <article class="domain-card">
+                    <h3><span class="icon-bullet">🌳</span>Parque centenario</h3>
+                    <p>Un entorno natural excepcional para ceremonias al aire libre y recepciones memorables.</p>
+                </article>
+                <article class="domain-card">
+                    <h3><span class="icon-bullet">🔐</span>Privatización exclusiva</h3>
+                    <p>El dominio completo se reserva para cada evento, con máxima intimidad y control total de la experiencia.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="palacio-section" style="padding-top: 0;">
+        <div class="container">
+            <h2 class="section-title">Servicios Signature</h2>
+            <div class="signature-grid">
+                <article class="signature-card">
+                    <h3>Suites privadas</h3>
+                    <p>Espacios elegantes para prolongar la experiencia en un entorno íntimo y refinado.</p>
+                </article>
+                <article class="signature-card">
+                    <h3>Orquestación a medida</h3>
+                    <p>Un equipo dedicado diseña y coordina cada detalle para que cada instante refleje tu visión.</p>
+                </article>
+                <article class="signature-card">
+                    <h3>Experiencias gastronómicas</h3>
+                    <p>Colaboraciones con catering de prestigio para elevar cada celebración y sorprender a tus invitados.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="palacio-section gallery-wrap">
+        <div class="container">
+            <h2 class="section-title">Galería</h2>
+            <p class="text-center" style="max-width: 720px; margin: -12px auto 30px;">Descubre en imágenes la atmósfera del Palacio: momentos suspendidos, luces doradas y emociones compartidas.</p>
+            <div class="gallery-grid">
+                <article class="gallery-card" style="background-image: url('images/vision_hero.jpg');">
+                    <p>Luz dorada al atardecer</p>
+                </article>
+                <article class="gallery-card" style="background-image: url('images/viaje_hero.jpg');">
+                    <p>Escenarios para historias únicas</p>
+                </article>
+                <article class="gallery-card" style="background-image: url('images/siemprecontigo_bis_hero.jpg');">
+                    <p>Emoción compartida</p>
+                </article>
+                <article class="gallery-card" style="background-image: url('images/fa_grup_hero.jpg');">
+                    <p>Elegancia y legado</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="palacio-section">
+        <div class="container">
+            <h2 class="section-title">Confían en nosotros</h2>
+            <div class="trust-grid">
+                <article class="trust-card">
+                    <h3>Parejas exigentes</h3>
+                    <p>Buscan autenticidad, belleza y una experiencia privada totalmente personalizada.</p>
+                </article>
+                <article class="trust-card">
+                    <h3>Marcas y casas creativas</h3>
+                    <p>Encuentran un escenario inspirador para campañas, editoriales y activaciones premium.</p>
+                </article>
+                <article class="trust-card">
+                    <h3>Producciones audiovisuales</h3>
+                    <p>Valoran la versatilidad de espacios y la atmósfera histórica del dominio.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-llegar" class="palacio-section" style="padding-top: 0;">
+        <div class="container">
+            <h2 class="section-title">Cómo llegar</h2>
+            <div class="access-grid">
+                <article class="access-card">
+                    <h3 style="margin-bottom: 0.9rem;">Acceso al dominio</h3>
+                    <p><i class="fas fa-map-marker-alt" style="color: var(--palacio-gold);"></i> Calle La Piedad, Almunia de San Juan, Aragón</p>
+                    <p class="palacio-muted">Comparte tu fecha de visita y te enviamos indicaciones personalizadas de acceso y estacionamiento para garantizar una llegada fluida.</p>
+                    <p><i class="fas fa-car" style="color: var(--palacio-gold);"></i> Llegada en coche con zona de recepción privada</p>
+                    <p><i class="fas fa-route" style="color: var(--palacio-gold);"></i> Ruta exacta disponible al confirmar la visita</p>
+                </article>
+                <div class="map-embed" aria-label="Plan de acceso a Calle La Piedad, Almunia de San Juan, Aragón">
+                    <iframe src="https://www.google.com/maps?q=Calle+La+Piedad,+Almunia+de+San+Juan,+Aragon&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de acceso a Calle La Piedad, Almunia de San Juan, Aragón"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto-palacio" class="palacio-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="contact-block">
+                <h2 class="palacio-title" style="margin-bottom: 0.6rem;">Acceso y contacto</h2>
+                <div class="gold-line"></div>
+                <p>Cuéntanos tu proyecto y déjanos imaginar contigo una experiencia a la altura de tus expectativas.</p>
+                <p style="margin-bottom: 0;"><strong>👉 Organizar una visita privada</strong> | <strong>👉 Imaginar tu evento en el Palacio</strong></p>
+
+                <form class="palacio-form" action="#" method="post">
+                    <div>
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" name="nombre" type="text" required>
+                    </div>
+                    <div>
+                        <label for="apellidos">Apellidos</label>
+                        <input id="apellidos" name="apellidos" type="text" required>
+                    </div>
+                    <div>
+                        <label for="tipo-evento">Tipo de evento</label>
+                        <select id="tipo-evento" name="tipo-evento" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="boda">Boda o ceremonia</option>
+                            <option value="rodaje">Rodaje o sesión fotográfica</option>
+                            <option value="corporativo">Evento corporativo</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="fecha">Fecha deseada</label>
+                        <input id="fecha" name="fecha" type="date" required>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" required>
+                    </div>
+                    <div>
+                        <label for="telefono">Teléfono</label>
+                        <input id="telefono" name="telefono" type="tel" required>
+                    </div>
+                    <div>
+                        <label for="invitados">Número de invitados</label>
+                        <input id="invitados" name="invitados" type="number" min="1" placeholder="Ej.: 120" required>
+                    </div>
+                    <div class="full">
+                        <label for="detalles">Detalles del proyecto</label>
+                        <textarea id="detalles" name="detalles" placeholder="Comparte el estilo de evento, necesidades especiales o ideas clave."></textarea>
+                    </div>
+                    <div class="full consent-wrap">
+                        <p>Responsable: FA GRUP. Finalidad: gestionar tu solicitud y facilitar información comercial sobre el Palacio. Legitimación: consentimiento del interesado.</p>
+                        <label for="consentimiento">
+                            <input id="consentimiento" name="consentimiento" type="checkbox" required>
+                            <span>He leído y acepto la <a href="privacidad.html">Política de Privacidad</a> y el <a href="aviso-legal.html">Aviso Legal</a>.</span>
+                        </label>
+                    </div>
+                    <div class="full">
+                        <button type="submit" class="btn-submit">Enviar solicitud</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>FA GRUP</h3>
+                    <p>Soluciones integrales para empresas y particulares</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="servicios.html#inmobiliaria">Inmobiliaria</a></li>
+                        <li><a href="servicios.html#seguros">Seguros</a></li>
+                        <li><a href="servicios.html#viajes">Agencia de Viajes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-phone"></i> +34 635 871 358</p>
+                    <p><i class="fas fa-envelope"></i> fagrupinmobiliaria@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Barcelona, España</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 FA GRUP. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="aviso-legal.html">Aviso Legal</a>
+                    <a href="privacidad.html">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Trigger sequential reveal for "Una experiencia fuera del tiempo" cards on scroll.
+        document.addEventListener('DOMContentLoaded', function () {
+            var factsGrid = document.querySelector('.facts-grid');
+            if (!factsGrid) return;
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        factsGrid.classList.add('is-visible');
+                        observer.unobserve(factsGrid);
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            observer.observe(factsGrid);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
