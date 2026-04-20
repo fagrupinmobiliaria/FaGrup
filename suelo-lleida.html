@@ -64,6 +64,92 @@
             max-width: 820px;
         }
 
+        .inv-hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+            gap: 26px;
+            align-items: end;
+        }
+
+        .hero-map-shell {
+            border: 1px solid rgba(199,161,77,0.45);
+            background: rgba(12, 12, 12, 0.55);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-map-head {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(199,161,77,0.26);
+            background: linear-gradient(90deg, rgba(199,161,77,0.2), rgba(199,161,77,0.06));
+        }
+
+        .hero-map-head h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-map-head p {
+            margin: 0.22rem 0 0;
+            font-size: 0.74rem;
+            color: rgba(255,255,255,0.72);
+        }
+
+        #hero-invest-map {
+            height: 420px;
+            width: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+            position: relative;
+        }
+
+        #hero-invest-map .hero-map-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.82rem;
+            background: repeating-linear-gradient(45deg, rgba(199,161,77,0.08), rgba(199,161,77,0.08) 12px, rgba(255,255,255,0.02) 12px, rgba(255,255,255,0.02) 24px);
+        }
+
+        .hero-map-steps {
+            display: none;
+            gap: 8px;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.35);
+            border-top: 1px solid rgba(199,161,77,0.22);
+        }
+
+        .hero-map-step {
+            flex: 1;
+            text-align: center;
+            border-radius: 999px;
+            border: 1px solid rgba(199,161,77,0.35);
+            color: rgba(255,255,255,0.78);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            padding: 0.36rem 0.4rem;
+            transition: all 0.25s ease;
+        }
+
+        .hero-map-step.is-active {
+            background: rgba(199,161,77,0.86);
+            color: #151515;
+            border-color: rgba(199,161,77,0.86);
+        }
+
         .inv-kicker {
             display: inline-flex;
             align-items: center;
@@ -547,6 +633,14 @@
                 padding: 130px 0 70px;
             }
 
+            .inv-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-map-shell {
+                order: 2;
+            }
+
             .scenario-table, .biz-table {
                 font-size: 0.82rem;
             }
@@ -595,19 +689,36 @@
     <!-- HERO -->
     <section class="inv-hero">
         <div class="container">
-            <div class="inv-hero-content">
-                <span class="inv-kicker" data-translate="sl_kicker">FA GRUP · Inversión Inmobiliaria</span>
-                <h1 data-translate="sl_hero_title">Oportunidad Estratégica de Suelo<br><span>Lleida – Avenida Rovira Roure</span></h1>
-                <p class="lead" data-translate="sl_hero_lead">Activo inmobiliario premium de uso mixto (terciario y residencial). Posicionamiento privilegiado en uno de los ejes más estructurantes de Lleida.</p>
-                <div class="inv-badges">
-                    <span class="inv-badge"><i class="fas fa-ruler-combined"></i> <span data-translate="sl_badge_1">1.849 m² de suelo</span></span>
-                    <span class="inv-badge"><i class="fas fa-building"></i> <span data-translate="sl_badge_2">2.939 m² desarrollados</span></span>
-                    <span class="inv-badge"><i class="fas fa-hospital"></i> <span data-translate="sl_badge_3">Entorno hospitalario</span></span>
-                    <span class="inv-badge"><i class="fas fa-chart-line"></i> <span data-translate="sl_badge_4">~532.000 €/año</span></span>
+            <div class="inv-hero-grid">
+                <div class="inv-hero-content">
+                    <span class="inv-kicker" data-translate="sl_kicker">FA GRUP · Inversión Inmobiliaria</span>
+                    <h1 data-translate="sl_hero_title">Oportunidad Estratégica de Suelo<br><span>Lleida – Avenida Rovira Roure</span></h1>
+                    <p class="lead" data-translate="sl_hero_lead">Activo inmobiliario premium de uso mixto (terciario y residencial). Posicionamiento privilegiado en uno de los ejes más estructurantes de Lleida.</p>
+                    <div class="inv-badges">
+                        <span class="inv-badge"><i class="fas fa-ruler-combined"></i> <span data-translate="sl_badge_1">1.849 m² de suelo</span></span>
+                        <span class="inv-badge"><i class="fas fa-building"></i> <span data-translate="sl_badge_2">2.939 m² desarrollados</span></span>
+                        <span class="inv-badge"><i class="fas fa-hospital"></i> <span data-translate="sl_badge_3">Entorno hospitalario</span></span>
+                        <span class="inv-badge"><i class="fas fa-chart-line"></i> <span data-translate="sl_badge_4">~532.000 €/año</span></span>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="#acceso-inversor" class="btn-inv btn-inv-solid" data-translate="sl_btn_dossier">Solicitar dossier confidencial</a>
+                        <a href="#business-case" class="btn-inv" data-translate="sl_btn_bcase">Ver Business Case</a>
+                    </div>
                 </div>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                    <a href="#acceso-inversor" class="btn-inv btn-inv-solid" data-translate="sl_btn_dossier">Solicitar dossier confidencial</a>
-                    <a href="#business-case" class="btn-inv" data-translate="sl_btn_bcase">Ver Business Case</a>
+
+                <aside class="hero-map-shell" aria-label="Animación de aproximación aérea al activo">
+                    <div class="hero-map-head">
+                        <h3 data-translate="sl_map_title">Vista aérea interactiva</h3>
+                        <p data-translate="sl_map_subtitle">Ciudad de Lleida → Avenida Alcalde Rovira Roure 76</p>
+                    </div>
+                    <div id="hero-invest-map">
+                        <div class="hero-map-fallback" data-translate="sl_map_fallback">Configura GOOGLE_MAPS_API_KEY para activar la animación map.moveCamera.</div>
+                    </div>
+                    <div class="hero-map-steps" aria-hidden="true">
+                        <span class="hero-map-step" data-step="city" data-translate="sl_map_step_city">Ciudad</span>
+                        <span class="hero-map-step" data-step="hospital" data-translate="sl_map_step_hospital">Rovira Roure 76</span>
+                    </div>
+                </aside>
                 </div>
             </div>
         </div>
@@ -900,6 +1011,144 @@
         }, { threshold: 0.2 });
 
         keyItems.forEach(item => keyObserver.observe(item));
+
+        // Hero map sequence: city -> main hospital. Uses Google Maps if key exists, otherwise Leaflet fallback.
+        (function initHeroMapSequence() {
+            const targetMapEl = document.getElementById('hero-invest-map');
+            if (!targetMapEl) return;
+
+            const MAP_STAGES = [
+                { id: 'city', center: { lat: 41.6177, lng: 0.6206 }, zoom: 12, tilt: 0, heading: 0 },
+                { id: 'hospital', center: { lat: 41.6228484, lng: 0.6163740 }, zoom: 18, tilt: 50, heading: 18 }
+            ];
+
+            function setActiveStep(stageId) {
+                document.querySelectorAll('.hero-map-step').forEach((el) => {
+                    el.classList.toggle('is-active', el.getAttribute('data-step') === stageId);
+                });
+            }
+
+            function clearFallbackMessage() {
+                const fallback = targetMapEl.querySelector('.hero-map-fallback');
+                if (fallback) {
+                    fallback.remove();
+                }
+            }
+
+            function runGoogleSequence(map) {
+                MAP_STAGES.forEach((stage, index) => {
+                    window.setTimeout(() => {
+                        setActiveStep(stage.id);
+                        map.moveCamera({
+                            center: stage.center,
+                            zoom: stage.zoom,
+                            tilt: stage.tilt,
+                            heading: stage.heading
+                        });
+                    }, index * 4000);
+                });
+            }
+
+            function bootGoogleMap() {
+                if (!window.google || !window.google.maps) return;
+
+                clearFallbackMessage();
+
+                const map = new google.maps.Map(targetMapEl, {
+                    center: MAP_STAGES[0].center,
+                    zoom: MAP_STAGES[0].zoom,
+                    tilt: 0,
+                    heading: 0,
+                    mapTypeId: 'satellite',
+                    disableDefaultUI: true,
+                    clickableIcons: false,
+                    gestureHandling: 'cooperative'
+                });
+
+                new google.maps.Marker({
+                    map,
+                    position: MAP_STAGES[1].center,
+                    title: 'Avenida Alcalde Rovira Roure 76, Lleida'
+                });
+
+                runGoogleSequence(map);
+                window.setInterval(() => runGoogleSequence(map), 10000);
+            }
+
+            function runLeafletSequence(map) {
+                MAP_STAGES.forEach((stage, index) => {
+                    window.setTimeout(() => {
+                        setActiveStep(stage.id);
+                        map.flyTo([stage.center.lat, stage.center.lng], stage.zoom, {
+                            duration: 4,
+                            easeLinearity: 0.25
+                        });
+                    }, index * 4000);
+                });
+            }
+
+            function bootLeafletMap() {
+                if (!window.L) return;
+
+                clearFallbackMessage();
+
+                const map = L.map(targetMapEl, {
+                    zoomControl: false,
+                    attributionControl: false
+                }).setView([MAP_STAGES[0].center.lat, MAP_STAGES[0].center.lng], MAP_STAGES[0].zoom);
+
+                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    maxZoom: 20,
+                    attribution: '&copy; Esri'
+                }).addTo(map);
+
+                L.marker([MAP_STAGES[1].center.lat, MAP_STAGES[1].center.lng]).addTo(map)
+                    .bindTooltip('Avenida Alcalde Rovira Roure 76, Lleida', { permanent: false, direction: 'top' });
+
+                runLeafletSequence(map);
+                window.setInterval(() => runLeafletSequence(map), 10000);
+            }
+
+            function loadMapsApi() {
+                if (window.google && window.google.maps) {
+                    bootGoogleMap();
+                    return;
+                }
+
+                const apiKey = window.GOOGLE_MAPS_API_KEY;
+                if (!apiKey) {
+                    loadLeafletFallback();
+                    return;
+                }
+
+                window.__initSueloHeroMap = bootGoogleMap;
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&callback=__initSueloHeroMap`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            }
+
+            function loadLeafletFallback() {
+                if (window.L) {
+                    bootLeafletMap();
+                    return;
+                }
+
+                const leafletCss = document.createElement('link');
+                leafletCss.rel = 'stylesheet';
+                leafletCss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                document.head.appendChild(leafletCss);
+
+                const leafletScript = document.createElement('script');
+                leafletScript.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                leafletScript.async = true;
+                leafletScript.onload = bootLeafletMap;
+                document.head.appendChild(leafletScript);
+            }
+
+            loadMapsApi();
+        })();
     </script>
 </body>
 </html>

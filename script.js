@@ -454,6 +454,13 @@ const translations = {
         sl_cta_desc: "Dossier técnico completo, estudio de viabilidad y data room disponibles bajo petición. Intercambios confidenciales con nuestro equipo de inversión.",
         sl_btn_contact: "Contactar ahora",
         sl_conf_text: "<strong>Condiciones financieras disponibles bajo consulta.</strong> Se facilitará un análisis detallado, incluyendo proyecciones de rendimiento y escenarios de explotación, en un marco estrictamente confidencial.",
+        sl_map_title: "Vista aérea interactiva",
+        sl_map_subtitle: "Ciudad de Lleida → Avenida Alcalde Rovira Roure 76",
+        sl_map_fallback: "Cargando mapa interactivo...",
+        sl_map_step_city: "Ciudad",
+        sl_map_step_district: "Barrio",
+        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_plot: "Terreno",
 
         // ── Lugar Eventos ──
         le_page_title: "Palacio Almunia de San Juan | FA GRUP",
@@ -925,6 +932,13 @@ const translations = {
         sl_cta_desc: "Dossier tècnic complet, estudi de viabilitat i data room disponibles sota petició. Intercanvis confidencials amb el nostre equip d'inversió.",
         sl_btn_contact: "Contactar ara",
         sl_conf_text: "<strong>Condicions financeres disponibles sota consulta.</strong> Es facilitarà una anàlisi detallada, incloent projeccions de rendiment i escenaris d'explotació, en un marc estrictament confidencial.",
+        sl_map_title: "Vista aèria interactiva",
+        sl_map_subtitle: "Ciutat de Lleida → Avinguda Alcalde Rovira Roure 76",
+        sl_map_fallback: "Carregant mapa interactiu...",
+        sl_map_step_city: "Ciutat",
+        sl_map_step_district: "Barri",
+        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_plot: "Terreny",
 
         // ── Lugar Eventos ──
         le_page_title: "Palau Almunia de San Juan | FA GRUP",
@@ -1396,6 +1410,13 @@ const translations = {
         sl_cta_desc: "Dossier technique complet, étude de faisabilité et data room disponibles sur demande. Échanges confidentiels avec notre équipe d'investissement.",
         sl_btn_contact: "Nous contacter",
         sl_conf_text: "<strong>Conditions financières disponibles sur consultation.</strong> Une analyse détaillée sera fournie, incluant les projections de rendement et les scénarios d'exploitation, dans un cadre strictement confidentiel.",
+        sl_map_title: "Vue aérienne interactive",
+        sl_map_subtitle: "Ville de Lleida → Avenue Alcalde Rovira Roure 76",
+        sl_map_fallback: "Chargement de la carte interactive...",
+        sl_map_step_city: "Ville",
+        sl_map_step_district: "Quartier",
+        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_plot: "Terrain",
 
         // ── Lugar Eventos ──
         le_page_title: "Palais Almunia de San Juan | FA GRUP",
@@ -1867,6 +1888,13 @@ const translations = {
         sl_cta_desc: "Complete technical dossier, feasibility study and data room available on request. Confidential exchanges with our investment team.",
         sl_btn_contact: "Contact us now",
         sl_conf_text: "<strong>Financial terms available on request.</strong> A detailed analysis will be provided, including performance projections and operating scenarios, in a strictly confidential framework.",
+        sl_map_title: "Interactive aerial view",
+        sl_map_subtitle: "Lleida city → Alcalde Rovira Roure Avenue 76",
+        sl_map_fallback: "Loading interactive map...",
+        sl_map_step_city: "City",
+        sl_map_step_district: "District",
+        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_plot: "Plot",
 
         // ── Lugar Eventos ──
         le_page_title: "Almunia de San Juan Palace | FA GRUP",
