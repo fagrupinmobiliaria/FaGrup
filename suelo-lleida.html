@@ -692,7 +692,7 @@
             <div class="inv-hero-grid">
                 <div class="inv-hero-content">
                     <span class="inv-kicker" data-translate="sl_kicker">FA GRUP · Inversión Inmobiliaria</span>
-                    <h1 data-translate="sl_hero_title">Oportunidad Estratégica de Suelo<br><span>Lleida – Avenida Rovira Roure</span></h1>
+                    <h1 data-translate="sl_hero_title">Oportunidad Estratégica de Suelo<br><span>Lleida – Carrer Eugeni d'Ors</span></h1>
                     <p class="lead" data-translate="sl_hero_lead">Activo inmobiliario premium de uso mixto (terciario y residencial). Posicionamiento privilegiado en uno de los ejes más estructurantes de Lleida.</p>
                     <div class="inv-badges">
                         <span class="inv-badge"><i class="fas fa-ruler-combined"></i> <span data-translate="sl_badge_1">1.849 m² de suelo</span></span>
@@ -709,14 +709,14 @@
                 <aside class="hero-map-shell" aria-label="Animación de aproximación aérea al activo">
                     <div class="hero-map-head">
                         <h3 data-translate="sl_map_title">Vista aérea interactiva</h3>
-                        <p data-translate="sl_map_subtitle">Ciudad de Lleida → Avenida Alcalde Rovira Roure 76</p>
+                        <p data-translate="sl_map_subtitle">Ciudad de Lleida → Carrer Eugeni d'Ors</p>
                     </div>
                     <div id="hero-invest-map">
                         <div class="hero-map-fallback" data-translate="sl_map_fallback">Configura GOOGLE_MAPS_API_KEY para activar la animación map.moveCamera.</div>
                     </div>
                     <div class="hero-map-steps" aria-hidden="true">
                         <span class="hero-map-step" data-step="city" data-translate="sl_map_step_city">Ciudad</span>
-                        <span class="hero-map-step" data-step="hospital" data-translate="sl_map_step_hospital">Rovira Roure 76</span>
+                        <span class="hero-map-step" data-step="hospital" data-translate="sl_map_step_hospital">Eugeni d'Ors</span>
                     </div>
                 </aside>
                 </div>
@@ -1019,7 +1019,7 @@
 
             const MAP_STAGES = [
                 { id: 'city', center: { lat: 41.6177, lng: 0.6206 }, zoom: 12, tilt: 0, heading: 0 },
-                { id: 'hospital', center: { lat: 41.6228484, lng: 0.6163740 }, zoom: 18, tilt: 50, heading: 18 }
+                { id: 'hospital', center: { lat: 41.6256398, lng: 0.6124486 }, zoom: 18, tilt: 50, heading: 18 }
             ];
 
             function setActiveStep(stageId) {
@@ -1068,7 +1068,7 @@
                 new google.maps.Marker({
                     map,
                     position: MAP_STAGES[1].center,
-                    title: 'Avenida Alcalde Rovira Roure 76, Lleida'
+                    title: "Carrer Eugeni d'Ors, Lleida"
                 });
 
                 runGoogleSequence(map);
@@ -1103,7 +1103,7 @@
                 }).addTo(map);
 
                 L.marker([MAP_STAGES[1].center.lat, MAP_STAGES[1].center.lng]).addTo(map)
-                    .bindTooltip('Avenida Alcalde Rovira Roure 76, Lleida', { permanent: false, direction: 'top' });
+                    .bindTooltip("Carrer Eugeni d'Ors, Lleida", { permanent: false, direction: 'top' });
 
                 runLeafletSequence(map);
                 window.setInterval(() => runLeafletSequence(map), 10000);

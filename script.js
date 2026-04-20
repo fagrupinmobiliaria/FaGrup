@@ -387,7 +387,7 @@ const translations = {
 
         // ── Suelo Lleida ──
         sl_kicker: "FA GRUP · Inversión Inmobiliaria",
-        sl_hero_title: "Oportunidad Estratégica de Suelo<br><span>Lleida – Avenida Rovira Roure</span>",
+        sl_hero_title: "Oportunidad Estratégica de Suelo<br><span>Lleida – Carrer Eugeni d'Ors</span>",
         sl_hero_lead: "Activo inmobiliario premium de uso mixto (terciario y residencial). Posicionamiento privilegiado en uno de los ejes más estructurantes de Lleida.",
         sl_badge_1: "1.849 m² de suelo",
         sl_badge_2: "2.939 m² desarrollados",
@@ -455,11 +455,11 @@ const translations = {
         sl_btn_contact: "Contactar ahora",
         sl_conf_text: "<strong>Condiciones financieras disponibles bajo consulta.</strong> Se facilitará un análisis detallado, incluyendo proyecciones de rendimiento y escenarios de explotación, en un marco estrictamente confidencial.",
         sl_map_title: "Vista aérea interactiva",
-        sl_map_subtitle: "Ciudad de Lleida → Avenida Alcalde Rovira Roure 76",
+        sl_map_subtitle: "Ciudad de Lleida → Carrer Eugeni d'Ors",
         sl_map_fallback: "Cargando mapa interactivo...",
         sl_map_step_city: "Ciudad",
         sl_map_step_district: "Barrio",
-        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_hospital: "Eugeni d'Ors",
         sl_map_step_plot: "Terreno",
 
         // ── Lugar Eventos ──
@@ -865,7 +865,7 @@ const translations = {
 
         // ── Suelo Lleida ──
         sl_kicker: "FA GRUP · Inversió Immobiliària",
-        sl_hero_title: "Oportunitat Estratègica de Sòl<br><span>Lleida – Avinguda Rovira Roure</span>",
+        sl_hero_title: "Oportunitat Estratègica de Sòl<br><span>Lleida – Carrer Eugeni d'Ors</span>",
         sl_hero_lead: "Actiu immobiliari premium d'ús mixt (terciari i residencial). Posicionament privilegiat en un dels eixos més estructurants de Lleida.",
         sl_badge_1: "1.849 m² de sòl",
         sl_badge_2: "2.939 m² desenvolupats",
@@ -933,11 +933,11 @@ const translations = {
         sl_btn_contact: "Contactar ara",
         sl_conf_text: "<strong>Condicions financeres disponibles sota consulta.</strong> Es facilitarà una anàlisi detallada, incloent projeccions de rendiment i escenaris d'explotació, en un marc estrictament confidencial.",
         sl_map_title: "Vista aèria interactiva",
-        sl_map_subtitle: "Ciutat de Lleida → Avinguda Alcalde Rovira Roure 76",
+        sl_map_subtitle: "Ciutat de Lleida → Carrer Eugeni d'Ors",
         sl_map_fallback: "Carregant mapa interactiu...",
         sl_map_step_city: "Ciutat",
         sl_map_step_district: "Barri",
-        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_hospital: "Eugeni d'Ors",
         sl_map_step_plot: "Terreny",
 
         // ── Lugar Eventos ──
@@ -1343,7 +1343,7 @@ const translations = {
 
         // ── Suelo Lleida ──
         sl_kicker: "FA GRUP · Investissement Immobilier",
-        sl_hero_title: "Opportunité Stratégique Foncière<br><span>Lleida – Avenue Rovira Roure</span>",
+        sl_hero_title: "Opportunité Stratégique Foncière<br><span>Lleida – Carrer Eugeni d'Ors</span>",
         sl_hero_lead: "Actif immobilier premium à usage mixte (tertiaire et résidentiel). Positionnement privilégié sur l'un des axes structurants de Lleida.",
         sl_badge_1: "1 849 m² de terrain",
         sl_badge_2: "2 939 m² développés",
@@ -1411,11 +1411,11 @@ const translations = {
         sl_btn_contact: "Nous contacter",
         sl_conf_text: "<strong>Conditions financières disponibles sur consultation.</strong> Une analyse détaillée sera fournie, incluant les projections de rendement et les scénarios d'exploitation, dans un cadre strictement confidentiel.",
         sl_map_title: "Vue aérienne interactive",
-        sl_map_subtitle: "Ville de Lleida → Avenue Alcalde Rovira Roure 76",
+        sl_map_subtitle: "Ville de Lleida → Carrer Eugeni d'Ors",
         sl_map_fallback: "Chargement de la carte interactive...",
         sl_map_step_city: "Ville",
         sl_map_step_district: "Quartier",
-        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_hospital: "Eugeni d'Ors",
         sl_map_step_plot: "Terrain",
 
         // ── Lugar Eventos ──
@@ -1821,7 +1821,7 @@ const translations = {
 
         // ── Suelo Lleida ──
         sl_kicker: "FA GRUP · Real Estate Investment",
-        sl_hero_title: "Strategic Land Opportunity<br><span>Lleida – Rovira Roure Avenue</span>",
+        sl_hero_title: "Strategic Land Opportunity<br><span>Lleida – Carrer Eugeni d'Ors</span>",
         sl_hero_lead: "Premium mixed-use real estate asset (tertiary and residential). Privileged positioning on one of Lleida's most structuring axes.",
         sl_badge_1: "1,849 m² of land",
         sl_badge_2: "2,939 m² developed",
@@ -1889,11 +1889,11 @@ const translations = {
         sl_btn_contact: "Contact us now",
         sl_conf_text: "<strong>Financial terms available on request.</strong> A detailed analysis will be provided, including performance projections and operating scenarios, in a strictly confidential framework.",
         sl_map_title: "Interactive aerial view",
-        sl_map_subtitle: "Lleida city → Alcalde Rovira Roure Avenue 76",
+        sl_map_subtitle: "Lleida city → Carrer Eugeni d'Ors",
         sl_map_fallback: "Loading interactive map...",
         sl_map_step_city: "City",
         sl_map_step_district: "District",
-        sl_map_step_hospital: "Rovira Roure 76",
+        sl_map_step_hospital: "Eugeni d'Ors",
         sl_map_step_plot: "Plot",
 
         // ── Lugar Eventos ──
