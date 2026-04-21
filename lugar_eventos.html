@@ -446,6 +446,14 @@
             max-height: unset;
         }
 
+        .gallery-lightbox-tile video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            max-height: unset;
+        }
+
         .gallery-lightbox-tile:hover img {
             transform: scale(1.05);
         }
@@ -463,6 +471,15 @@
         }
 
         .gallery-lightbox-focus img {
+            max-width: min(90vw, 1100px);
+            max-height: calc(88vh - 90px);
+            width: auto;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.35);
+        }
+
+        .gallery-lightbox-focus video {
             max-width: min(90vw, 1100px);
             max-height: calc(88vh - 90px);
             width: auto;
@@ -815,19 +832,19 @@
             <h2 class="section-title" data-translate="le_gallery_title">Galería</h2>
             <p class="text-center" style="max-width: 720px; margin: -12px auto 30px;" data-translate="le_gallery_subtitle">Descubre en imágenes la atmósfera del Palacio: momentos suspendidos, luces doradas y emociones compartidas.</p>
             <div class="gallery-grid">
-                <article class="gallery-card" style="background-image: url('images/boda_patio_palacio.jpeg');" data-group="bodas" data-images='[{"src":"images/boda_patio_palacio.jpeg","caption":"Bodas"},{"src":"images/vista_palacio.jpeg","caption":"Palau"},{"src":"images/fa_grup_hero.jpg","caption":"Família"}]' role="button" tabindex="0" aria-label="Ver galería: Bodas">
+                <article class="gallery-card" style="background-image: url('images/boda_patio_palacio.jpeg');" data-group="bodas" data-images='[{"src":"images/boda_patio_palacio.jpeg","caption":"Bodas"},{"src":"images/Boda_escalera.jpeg","caption":"Boda en la escalera"},{"src":"images/boda_jardin.jpeg","caption":"Boda en el jardín"}]' role="button" tabindex="0" aria-label="Ver galería: Bodas">
                     <p data-translate="le_gallery_1">Bodas</p>
                 </article>
                 <article class="gallery-card" style="background-image: url('images/carussel_noche_bis.jpeg');" data-group="luz" data-images='[{"src":"images/carussel_noche_bis.jpeg","caption":"Luz dorada al atardecer"},{"src":"images/fondo_del_index.jpg","caption":"Noche en el palacio"},{"src":"images/viaje_hero.jpg","caption":"Escenario dorado"}]' role="button" tabindex="0" aria-label="Ver galería: Luz dorada al atardecer">
                     <p data-translate="le_gallery_2">Luz dorada al atardecer</p>
                 </article>
-                <article class="gallery-card" style="background-image: url('images/viaje_hero.jpg');" data-group="escenarios" data-images='[{"src":"images/viaje_hero.jpg","caption":"Escenarios para historias únicas"},{"src":"images/vista_proyecto.jpg","caption":"El dominio"},{"src":"images/mision_hero.jpg","caption":"Nuestra misión"}]' role="button" tabindex="0" aria-label="Ver galería: Escenarios para historias únicas">
+                <article class="gallery-card" style="background-image: url('images/viaje_hero.jpg');" data-group="escenarios" data-images='[{"src":"images/viaje_hero.jpg","caption":"Escenarios para historias únicas"},{"src":"images/piscina_test_2.jpg","caption":"Piscina interior"},{"src":"images/mision_hero.jpg","caption":"Nuestra misión"},{"src":"images/vista_palacio.jpeg","caption":"Palau"}]' role="button" tabindex="0" aria-label="Ver galería: Escenarios para historias únicas">
                     <p data-translate="le_gallery_3">Escenarios para historias únicas</p>
                 </article>
                 <article class="gallery-card" style="background-image: url('images/terassa_evento_bis.jpg');" data-group="emocion" data-images='[{"src":"images/terassa_evento_bis.jpg","caption":"Emoción compartida"},{"src":"images/siemprecontigo_bis_hero.jpg","caption":"Siempre contigo"},{"src":"images/boda_patio_palacio.jpeg","caption":"Un momento único"}]' role="button" tabindex="0" aria-label="Ver galería: Emoción compartida">
                     <p data-translate="le_gallery_4">Emoción compartida</p>
                 </article>
-                <article class="gallery-card" style="background-image: url('images/despacho_palacio.jpg');" data-group="legado" data-images='[{"src":"images/despacho_palacio.jpg","caption":"Elegancia y legado"},{"src":"images/mision_hero.jpg","caption":"Nuestra historia"},{"src":"images/fa_grup_hero.jpg","caption":"El equipo"}]' role="button" tabindex="0" aria-label="Ver galería: Elegancia y legado">
+                <article class="gallery-card" style="background-image: url('images/despacho_palacio.jpg');" data-group="legado" data-images='[{"src":"images/despacho_palacio.jpg","caption":"Elegancia y legado"},{"src":"images/mision_hero.jpg","caption":"Nuestra historia"},{"src":"images/fa_grup_hero.jpg","caption":"El equipo"},{"src":"images/carussel_palaciobis.jpg","caption":"Palacio en detalle"}]' role="button" tabindex="0" aria-label="Ver galería: Elegancia y legado">
                     <p data-translate="le_gallery_5">Elegancia y legado</p>
                 </article>
             </div>
@@ -1016,7 +1033,6 @@
             var backBtn = document.getElementById('gallery-lightbox-back');
             var mosaicEl = document.getElementById('gallery-lightbox-mosaic');
             var focusEl = document.getElementById('gallery-lightbox-focus');
-            var imageEl = document.getElementById('gallery-lightbox-image');
             var captionEl = document.getElementById('gallery-lightbox-caption');
 
             if (!items.length || !lightbox) return;
@@ -1030,7 +1046,7 @@
             function closeLightbox() {
                 lightbox.classList.remove('is-open');
                 lightbox.setAttribute('aria-hidden', 'true');
-                imageEl.src = '';
+                focusEl.innerHTML = '';
                 document.body.style.overflow = '';
             }
 
@@ -1039,10 +1055,23 @@
                 images.forEach(function (img) {
                     var tile = document.createElement('div');
                     tile.className = 'gallery-lightbox-tile';
-                    var pic = document.createElement('img');
-                    pic.src = img.src;
-                    pic.alt = img.caption || '';
-                    pic.loading = 'lazy';
+                    var isVideo = img.type === 'video';
+                    var pic;
+                    if (isVideo) {
+                        pic = document.createElement('video');
+                        pic.src = img.src;
+                        pic.muted = true;
+                        pic.loop = true;
+                        pic.autoplay = true;
+                        pic.playsInline = true;
+                        pic.preload = 'metadata';
+                        pic.setAttribute('aria-label', img.caption || 'Video de la galeria');
+                    } else {
+                        pic = document.createElement('img');
+                        pic.src = img.src;
+                        pic.alt = img.caption || '';
+                        pic.loading = 'lazy';
+                    }
                     var cap = document.createElement('span');
                     cap.className = 'gallery-lightbox-tile-caption';
                     cap.textContent = img.caption || '';
@@ -1057,8 +1086,14 @@
             }
 
             function showFocus(img) {
-                imageEl.src = img.src;
-                imageEl.alt = img.caption || 'Imagen de la galeria';
+                var mediaHtml;
+                if (img.type === 'video') {
+                    mediaHtml = '<video controls autoplay playsinline><source src="' + img.src + '"></video>';
+                } else {
+                    mediaHtml = '<img src="' + img.src + '" alt="' + (img.caption || 'Imagen de la galeria') + '">';
+                }
+                focusEl.innerHTML = mediaHtml + '<p class="gallery-lightbox-caption" id="gallery-lightbox-caption"></p>';
+                captionEl = document.getElementById('gallery-lightbox-caption');
                 captionEl.textContent = img.caption || '';
                 focusEl.style.display = 'flex';
                 mosaicEl.style.display = 'none';
@@ -1079,6 +1114,7 @@
             });
 
             backBtn.addEventListener('click', function () {
+                focusEl.innerHTML = '';
                 focusEl.style.display = 'none';
                 mosaicEl.style.display = 'grid';
                 backBtn.style.display = 'none';
