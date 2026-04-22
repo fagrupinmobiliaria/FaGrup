@@ -617,6 +617,32 @@
             color: #151515;
         }
 
+        .floating-contact-btn {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 1250;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.82rem 1.2rem;
+            border-radius: 999px;
+            background: #171717;
+            color: #fff;
+            border: 1px solid rgba(199, 161, 77, 0.7);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .floating-contact-btn:hover,
+        .floating-contact-btn:focus-visible {
+            transform: translateY(-2px);
+            background: var(--palacio-gold);
+            color: #151515;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.26);
+        }
+
         @keyframes vignetteIn {
             from {
                 opacity: 0;
@@ -680,6 +706,13 @@
             .access-grid {
                 grid-template-columns: 1fr;
             }
+
+            .floating-contact-btn {
+                right: 16px;
+                bottom: 16px;
+                padding: 0.78rem 1rem;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -722,6 +755,11 @@
             </div>
         </div>
     </nav>
+
+    <a href="#contacto-palacio" class="floating-contact-btn" data-translate="le_floating_contact">
+        <i class="fas fa-envelope"></i>
+        Contáctanos
+    </a>
 
     <section class="palacio-hero">
         <div class="container">
